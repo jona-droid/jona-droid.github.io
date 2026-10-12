@@ -1,0 +1,972 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Jonathan Fouquet — Robotics, Reinforcement Learning & Control</title>
+  <meta name="description" content="Jonathan Fouquet — MSc student in Robotics, Systems and Control at ETH Zürich. Working on reinforcement learning and optimal control for legged and humanoid robots.">
+
+  <!-- Open Graph / LinkedIn Meta Tags -->
+  <meta property="og:title" content="Jonathan Fouquet — Robotics & RL Portfolio">
+  <meta property="og:description" content="ETH Zürich robotics master's student working on reinforcement learning, optimal control, and legged/humanoid robots. CMU & EPFL Alum.">
+  <meta property="og:url" content="https://jonathanfouquet.dev/">
+  <meta property="og:type" content="website">
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap">
+
+  <style>
+    /* ==========================================================================
+       THEME & DESIGN SYSTEM (Sober, Light-first, Inspired by leonardcourt.dev)
+       ========================================================================== */
+    :root, :root[data-theme="light"] {
+      --bg: #FAFAF9;
+      --surface: #FFFFFF;
+      --surface-subtle: #F4F4F2;
+      --line: #E4E5E2;
+      --line-subtle: #EBECE9;
+      --ink: #0F172A;
+      --ink-secondary: #334155;
+      --muted: #64748B;
+      --faint: #94A3B8;
+      --accent: #1E3A5F;           /* Deep academic navy */
+      --accent-hover: #112338;
+      --accent-soft: rgba(30, 58, 95, 0.08);
+      --badge-bg: #EEF2F6;
+      --tag-ink: #1E293B;
+      --maxw: 1040px;
+      --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      --font-mono: 'JetBrains Mono', ui-monospace, Menlo, monospace;
+    }
+
+    :root[data-theme="dark"] {
+      --bg: #0C0F14;
+      --surface: #141820;
+      --surface-subtle: #1A202A;
+      --line: #27303E;
+      --line-subtle: #1F2733;
+      --ink: #F1F5F9;
+      --ink-secondary: #CBD5E1;
+      --muted: #94A3B8;
+      --faint: #64748B;
+      --accent: #38BDF8;
+      --accent-hover: #0EA5E9;
+      --accent-soft: rgba(56, 189, 248, 0.12);
+      --badge-bg: #1A2433;
+      --tag-ink: #E2E8F0;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; -webkit-text-size-adjust: 100%; }
+    body {
+      background: var(--bg);
+      color: var(--ink);
+      font-family: var(--font-sans);
+      font-size: 15px;
+      line-height: 1.65;
+      -webkit-font-smoothing: antialiased;
+      text-rendering: optimizeLegibility;
+      overflow-x: hidden;
+    }
+
+    .wrap { max-width: var(--maxw); margin-inline: auto; padding-inline: clamp(18px, 5vw, 40px); }
+    a { color: inherit; text-decoration: none; }
+    .mono { font-family: var(--font-mono); }
+    .muted { color: var(--muted); }
+    .faint { color: var(--faint); }
+
+    /* Header */
+    header {
+      position: sticky; top: 0; z-index: 50;
+      background: color-mix(in srgb, var(--bg) 88%, transparent);
+      backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--line);
+    }
+    .nav { display: flex; align-items: center; justify-content: space-between; height: 64px; }
+    .brand { display: flex; align-items: center; gap: 10px; font-weight: 600; font-size: 0.95rem; }
+    .brand-badge {
+      display: inline-flex; align-items: center; justify-content: center;
+      width: 32px; height: 32px; border-radius: 6px;
+      background: var(--surface); border: 1px solid var(--line);
+      font-family: var(--font-mono); font-size: 0.78rem; font-weight: 600; color: var(--accent);
+    }
+    .nav-links { display: flex; align-items: center; gap: 6px; list-style: none; }
+    .nav-links a {
+      font-size: 0.88rem; color: var(--muted); padding: 7px 12px; border-radius: 6px;
+      transition: color 0.15s, background 0.15s;
+    }
+    .nav-links a:hover { color: var(--ink); background: var(--surface-subtle); }
+    .cv-btn {
+      display: inline-flex; align-items: center; gap: 6px;
+      padding: 6px 13px; border-radius: 6px;
+      background: var(--surface); border: 1px solid var(--line);
+      font-size: 0.85rem; font-weight: 500; color: var(--ink);
+      transition: border-color 0.15s, transform 0.15s;
+    }
+    .cv-btn:hover { border-color: var(--accent); }
+    .theme-btn {
+      background: transparent; border: 1px solid var(--line);
+      color: var(--muted); width: 34px; height: 34px; border-radius: 6px;
+      cursor: pointer; display: inline-grid; place-items: center;
+    }
+    .theme-btn:hover { color: var(--ink); border-color: var(--ink); }
+
+    /* Sections */
+    section { padding-block: clamp(52px, 8vw, 92px); border-bottom: 1px solid var(--line); }
+    .sec-label {
+      font-family: var(--font-mono); font-size: 0.72rem; letter-spacing: 0.16em;
+      text-transform: uppercase; color: var(--muted); margin-bottom: 10px;
+    }
+    .sec-title {
+      font-size: clamp(1.6rem, 3.2vw, 2.3rem); font-weight: 700;
+      letter-spacing: -0.025em; color: var(--ink); margin-bottom: 16px;
+    }
+    .sec-desc { max-width: 68ch; color: var(--muted); font-size: 1.02rem; margin-bottom: 36px; }
+
+    /* Hero */
+    .hero { padding-top: clamp(48px, 7vw, 80px); }
+    .eyebrow {
+      display: inline-flex; align-items: center; gap: 8px;
+      font-family: var(--font-mono); font-size: 0.75rem; font-weight: 500;
+      letter-spacing: 0.12em; text-transform: uppercase; color: var(--muted); margin-bottom: 18px;
+    }
+    .hero h1 {
+      font-size: clamp(2.4rem, 6vw, 4.2rem); font-weight: 700;
+      letter-spacing: -0.035em; line-height: 1.08; color: var(--ink);
+    }
+    .hero .tagline {
+      font-size: clamp(1.15rem, 2.4vw, 1.45rem); font-weight: 500;
+      color: var(--accent); margin-top: 14px;
+    }
+    .hero .lead {
+      font-size: 1.05rem; color: var(--ink-secondary); margin-top: 22px;
+      max-width: 68ch; line-height: 1.7;
+    }
+    .hero .lead strong { color: var(--ink); font-weight: 600; }
+    .status-badge {
+      display: inline-flex; align-items: center; gap: 9px;
+      margin-top: 28px; padding: 7px 14px; border-radius: 999px;
+      background: var(--surface); border: 1px solid var(--line);
+      font-family: var(--font-mono); font-size: 0.78rem; color: var(--ink-secondary);
+    }
+    .status-dot {
+      width: 7px; height: 7px; border-radius: 50%; background: #10B981;
+      box-shadow: 0 0 0 3px rgba(16, 185, 129, 0.2);
+    }
+    .hero-actions { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 32px; }
+    .btn {
+      display: inline-flex; align-items: center; justify-content: center; gap: 8px;
+      padding: 10px 18px; border-radius: 7px; font-size: 0.88rem; font-weight: 500;
+      transition: all 0.15s ease;
+    }
+    .btn-primary { background: var(--accent); color: #FFFFFF; }
+    .btn-primary:hover { background: var(--accent-hover); }
+    .btn-secondary { background: var(--surface); border: 1px solid var(--line); color: var(--ink); }
+    .btn-secondary:hover { border-color: var(--ink); }
+
+    /* Focus Grid */
+    .focus-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
+    .focus-card {
+      background: var(--surface); border: 1px solid var(--line);
+      border-radius: 10px; padding: 26px; display: flex; flex-direction: column;
+    }
+    .focus-num { font-family: var(--font-mono); font-size: 0.75rem; color: var(--muted); margin-bottom: 12px; }
+    .focus-card h3 { font-size: 1.15rem; font-weight: 600; color: var(--ink); margin-bottom: 10px; }
+    .focus-card p { font-size: 0.92rem; color: var(--muted); line-height: 1.6; margin-bottom: 18px; flex-grow: 1; }
+    .pill-list { display: flex; flex-wrap: wrap; gap: 6px; }
+    .pill {
+      font-family: var(--font-mono); font-size: 0.7rem; padding: 3px 8px;
+      border-radius: 5px; background: var(--surface-subtle); color: var(--muted);
+      border: 1px solid var(--line-subtle);
+    }
+
+    /* Projects / Work Section */
+    .project-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 22px; }
+    .project-card {
+      background: var(--surface); border: 1px solid var(--line);
+      border-radius: 10px; padding: 26px; display: flex; flex-direction: column;
+      transition: transform 0.15s, border-color 0.15s;
+    }
+    .project-card:hover { border-color: var(--accent); }
+    .project-meta {
+      display: flex; justify-content: space-between; align-items: center;
+      font-family: var(--font-mono); font-size: 0.72rem; color: var(--muted); margin-bottom: 10px;
+    }
+    .project-card h3 { font-size: 1.25rem; font-weight: 600; color: var(--ink); margin-bottom: 8px; }
+    .project-role { font-family: var(--font-mono); font-size: 0.75rem; color: var(--accent); margin-bottom: 12px; }
+    .project-card p { font-size: 0.92rem; color: var(--muted); line-height: 1.6; margin-bottom: 16px; }
+    .project-bullets { list-style: none; display: flex; flex-direction: column; gap: 8px; margin-bottom: 18px; font-size: 0.9rem; color: var(--ink-secondary); }
+    .project-bullets li { position: relative; padding-left: 16px; }
+    .project-bullets li::before {
+      content: ""; position: absolute; left: 0; top: 8px; width: 5px; height: 5px;
+      border-radius: 50%; background: var(--accent);
+    }
+
+    /* ==========================================================================
+       ACADEMIC TRANSCRIPTS & RELEVANT GRADES (NEW DEDICATED SECTION)
+       ========================================================================== */
+    .academics-container { display: flex; flex-direction: column; gap: 28px; }
+    .uni-card {
+      background: var(--surface); border: 1px solid var(--line);
+      border-radius: 10px; padding: clamp(22px, 3.5vw, 32px);
+    }
+    .uni-header {
+      display: flex; justify-content: space-between; align-items: flex-start;
+      border-bottom: 1px solid var(--line); padding-bottom: 18px; margin-bottom: 20px;
+      flex-wrap: wrap; gap: 12px;
+    }
+    .uni-title h3 { font-size: 1.35rem; font-weight: 700; color: var(--ink); }
+    .uni-title p { font-size: 0.95rem; color: var(--muted); margin-top: 2px; }
+    .uni-stats { display: flex; gap: 10px; align-items: center; flex-wrap: wrap; }
+    .stat-pill {
+      font-family: var(--font-mono); font-size: 0.76rem; font-weight: 600;
+      padding: 4px 10px; border-radius: 6px; background: var(--badge-bg);
+      color: var(--accent); border: 1px solid var(--line);
+    }
+    .stat-pill.highlight { background: var(--accent-soft); color: var(--accent); }
+
+    .grades-table {
+      width: 100%; border-collapse: collapse; font-size: 0.9rem;
+    }
+    .grades-table th {
+      text-align: left; font-family: var(--font-mono); font-size: 0.72rem;
+      letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted);
+      padding: 8px 10px; border-bottom: 1px solid var(--line);
+    }
+    .grades-table td {
+      padding: 10px; border-bottom: 1px solid var(--line-subtle); color: var(--ink-secondary);
+    }
+    .grades-table tr:last-child td { border-bottom: none; }
+    .grades-table td.code { font-family: var(--font-mono); font-size: 0.78rem; color: var(--muted); width: 140px; }
+    .grades-table td.course { font-weight: 500; color: var(--ink); }
+    .grades-table td.grade {
+      font-family: var(--font-mono); font-size: 0.85rem; font-weight: 600;
+      text-align: right; width: 110px;
+    }
+    .grade-top { color: #059669; }     /* Top grades highlighted cleanly */
+    .grade-high { color: var(--ink); }
+
+    /* Experience Timeline */
+    .timeline { display: flex; flex-direction: column; gap: 20px; }
+    .timeline-item {
+      background: var(--surface); border: 1px solid var(--line);
+      border-radius: 10px; padding: 22px 26px;
+    }
+    .timeline-head {
+      display: flex; justify-content: space-between; align-items: baseline;
+      margin-bottom: 6px; flex-wrap: wrap; gap: 8px;
+    }
+    .timeline-head h4 { font-size: 1.08rem; font-weight: 600; color: var(--ink); }
+    .timeline-date { font-family: var(--font-mono); font-size: 0.74rem; color: var(--muted); }
+    .timeline-org { font-family: var(--font-mono); font-size: 0.78rem; color: var(--accent); margin-bottom: 10px; }
+    .timeline-desc { font-size: 0.92rem; color: var(--muted); line-height: 1.6; }
+
+    /* Capabilities / Stack */
+    .stack-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; }
+    .stack-card {
+      background: var(--surface); border: 1px solid var(--line);
+      border-radius: 8px; padding: 20px;
+    }
+    .stack-card h4 {
+      font-family: var(--font-mono); font-size: 0.72rem; letter-spacing: 0.12em;
+      text-transform: uppercase; color: var(--muted); margin-bottom: 12px;
+    }
+    .stack-card ul { list-style: none; display: flex; flex-direction: column; gap: 6px; }
+    .stack-card li { font-size: 0.88rem; color: var(--ink-secondary); }
+
+    /* Contact */
+    .contact-box {
+      background: var(--surface); border: 1px solid var(--line);
+      border-radius: 10px; padding: clamp(26px, 4vw, 42px);
+    }
+    .contact-email {
+      display: inline-flex; align-items: center; gap: 12px;
+      margin-block: 20px; flex-wrap: wrap;
+    }
+    .contact-email code {
+      font-family: var(--font-mono); font-size: 1rem; padding: 10px 16px;
+      border-radius: 8px; background: var(--surface-subtle); border: 1px solid var(--line);
+      color: var(--ink);
+    }
+    .copy-btn {
+      padding: 10px 16px; border-radius: 8px; font-family: var(--font-mono);
+      font-size: 0.82rem; background: var(--surface); border: 1px solid var(--line);
+      color: var(--ink); cursor: pointer; transition: all 0.15s;
+    }
+    .copy-btn:hover { border-color: var(--accent); color: var(--accent); }
+    .social-links { display: flex; gap: 12px; flex-wrap: wrap; margin-top: 14px; }
+    .social-btn {
+      display: inline-flex; align-items: center; gap: 6px;
+      font-family: var(--font-mono); font-size: 0.82rem; padding: 8px 14px;
+      border-radius: 7px; background: var(--surface); border: 1px solid var(--line);
+      color: var(--muted); transition: all 0.15s;
+    }
+    .social-btn:hover { border-color: var(--accent); color: var(--ink); }
+
+    /* Footer */
+    footer { padding-block: 30px; font-family: var(--font-mono); font-size: 0.76rem; color: var(--muted); }
+    .footer-inner { display: flex; justify-content: space-between; align-items: center; flex-wrap: gap; }
+
+    /* Responsive */
+    @media (max-width: 860px) {
+      .focus-grid { grid-template-columns: 1fr; }
+      .project-grid { grid-template-columns: 1fr; }
+      .stack-grid { grid-template-columns: repeat(2, 1fr); }
+    }
+    @media (max-width: 640px) {
+      .nav-links { display: none; }
+      .stack-grid { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ========================================================================
+       NAVIGATION
+       ======================================================================== -->
+  <header>
+    <div class="wrap nav">
+      <a href="#about" class="brand">
+        <span class="brand-badge">JF</span>
+        <span>Jonathan Fouquet</span>
+      </a>
+
+      <ul class="nav-links">
+        <li><a href="#about">About</a></li>
+        <li><a href="#focus">Focus</a></li>
+        <li><a href="#work">Projects</a></li>
+        <li><a href="#academics">Grades & Education</a></li>
+        <li><a href="#experience">Experience</a></li>
+        <li><a href="#contact">Contact</a></li>
+      </ul>
+
+      <div style="display:flex; align-items:center; gap:10px;">
+        <a href="cv.pdf" target="_blank" rel="noopener noreferrer" class="cv-btn">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line></svg>
+          CV ↗
+        </a>
+        <button id="themeToggle" class="theme-btn" aria-label="Toggle theme">◐</button>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <!-- ======================================================================
+         HERO SECTION (Clear Motivation for Robotics, RL & Control)
+         ====================================================================== -->
+    <section id="about" class="hero">
+      <div class="wrap">
+        <p class="eyebrow">ETH Zürich · Carnegie Mellon · EPFL</p>
+        <h1>Jonathan Fouquet</h1>
+        <p class="tagline">Reinforcement Learning, Optimal Control &amp; Legged Locomotion</p>
+        
+        <p class="lead">
+          I am an M.Sc. student in <strong>Robotics, Systems and Control at ETH Zürich</strong>, motivated by one central challenge: <strong>teaching legged and humanoid robots how to move with agility, balance, and whole-body coordination in the physical world</strong>.
+        </p>
+
+        <p class="lead" style="margin-top:14px;">
+          My research focuses on the seam between <strong>reinforcement learning</strong> (PPO, reward design, sim-to-real transfer) and <strong>model-based optimal control</strong> (MPC, LQR, receding-horizon planning). I am convinced that robust physical autonomy emerges when we combine the adaptive power of learned policies with the mathematical stability guarantees of dynamic models.
+        </p>
+
+        <p class="lead" style="margin-top:14px;">
+          At ETH Zürich, I conduct coursework advised within the <strong>Robotic Systems Lab (RSL / Prof. Marco Hutter)</strong> and lead control and teleoperation development for humanoid robotics at the <strong>ETH Robotics Club</strong>.
+        </p>
+
+        <div class="status-badge">
+          <span class="status-dot"></span>
+          <span>Open to a working-student role or robotics internship in Zürich · 20–40%</span>
+        </div>
+
+        <div class="hero-actions">
+          <a href="#work" class="btn btn-primary">Explore My Work →</a>
+          <a href="#academics" class="btn btn-secondary">Academic Grades &amp; Transcripts ↓</a>
+          <a href="#contact" class="btn btn-secondary">Get in Touch</a>
+        </div>
+
+        <p class="faint mono" style="font-size:0.75rem; margin-top:24px;">
+          ◰ Zürich, Switzerland · French (Native) · English (C1) · German
+        </p>
+      </div>
+    </section>
+
+    <!-- ======================================================================
+         AREAS OF FOCUS
+         ====================================================================== -->
+    <section id="focus">
+      <div class="wrap">
+        <p class="sec-label">01 / Research Focus</p>
+        <h2 class="sec-title">What I want to solve in robotics.</h2>
+        <p class="sec-desc">
+          Building embodied AI systems that do not merely memorize simulation, but adapt gracefully to unpredictable terrain and physical contact.
+        </p>
+
+        <div class="focus-grid">
+          <div class="focus-card">
+            <span class="focus-num">01</span>
+            <h3>RL for Legged Locomotion</h3>
+            <p>
+              Training robust whole-body motor skills in physics simulators (MuJoCo, Isaac Lab) for quadrupeds and humanoids. Designing curriculum learning, reward shaping, and domain randomization so policies survive the jump to real hardware.
+            </p>
+            <div class="pill-list">
+              <span class="pill">PPO</span>
+              <span class="pill">Sim-to-Real</span>
+              <span class="pill">Whole-Body Control</span>
+              <span class="pill">MuJoCo</span>
+            </div>
+          </div>
+
+          <div class="focus-card">
+            <span class="focus-num">02</span>
+            <h3>Model-Based Control &amp; MPC</h3>
+            <p>
+              Using Model Predictive Control, LQR, and Dynamic Programming as stabilizing backbones. Combining optimization-based trajectory planning with learned policies to preserve hard constraints and safety bounds.
+            </p>
+            <div class="pill-list">
+              <span class="pill">MPC</span>
+              <span class="pill">LQR</span>
+              <span class="pill">Optimal Control</span>
+              <span class="pill">Receding Horizon</span>
+            </div>
+          </div>
+
+          <div class="focus-card">
+            <span class="focus-num">03</span>
+            <h3>Human–Robot Interaction &amp; Teleoperation</h3>
+            <p>
+              Closing the control loop back to the human operator: decoding motor intent from electromyography (EMG) signals for prosthetic hands, and managing low-latency bilateral feedback in VR teleoperation.
+            </p>
+            <div class="pill-list">
+              <span class="pill">EMG Decoding</span>
+              <span class="pill">VR Teleoperation</span>
+              <span class="pill">ROS 2</span>
+              <span class="pill">Shared Autonomy</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ======================================================================
+         CURRENT WORK & PROJECTS
+         ====================================================================== -->
+    <section id="work">
+      <div class="wrap">
+        <p class="sec-label">02 / Selected Projects</p>
+        <h2 class="sec-title">Current work &amp; robotic implementations.</h2>
+        <p class="sec-desc">
+          Hands-on systems spanning humanoid whole-body control, biomechatronic intent decoding, and classical feedback control loops.
+        </p>
+
+        <div class="project-grid">
+          <!-- Project 1 -->
+          <div class="project-card">
+            <div class="project-meta">
+              <span>ETH Robotics Club</span>
+              <span>2026 → Present</span>
+            </div>
+            <h3>ETHRC Humanoid — Whole-Body Control</h3>
+            <p class="project-role">Core Contributor · ROS 2 / MuJoCo / C++</p>
+            <p>
+              Developing the whole-body control and teleoperation stack for the club’s full-size humanoid platform.
+            </p>
+            <ul class="project-bullets">
+              <li>Tracing commands from VR operator headsets through the high-level controller down to joint-level actuation.</li>
+              <li>Implementing latency-compensation and stability routines in MuJoCo simulations under delayed packet transmission.</li>
+              <li>Developing modular ROS 2 packages adhering to modern colcon build and real-time execution standards.</li>
+            </ul>
+            <div class="pill-list">
+              <span class="pill">ROS 2</span>
+              <span class="pill">MuJoCo</span>
+              <span class="pill">C++ / Python</span>
+              <span class="pill">Teleoperation</span>
+            </div>
+          </div>
+
+          <!-- Project 2 -->
+          <div class="project-card">
+            <div class="project-meta">
+              <span>ETHRC HRI Team</span>
+              <span>2026 → Present</span>
+            </div>
+            <h3>Prosthetic Hand — Intuitive EMG Control</h3>
+            <p class="project-role">Intuitive-Control Specialist · Signal Processing / ML</p>
+            <p>
+              Engineering the intent-recognition subsystem for an advanced multi-articulated prosthetic hand.
+            </p>
+            <ul class="project-bullets">
+              <li>Processing multi-channel surface EMG signals to detect muscle activation patterns and user intent in real time.</li>
+              <li>Mapping classification outputs to continuous grip trajectories and natural adaptive grasping.</li>
+              <li>Integrating embedded signal filtering algorithms on microcontrollers for minimal latency response.</li>
+            </ul>
+            <div class="pill-list">
+              <span class="pill">EMG</span>
+              <span class="pill">Machine Learning</span>
+              <span class="pill">HRI</span>
+              <span class="pill">Embedded C</span>
+            </div>
+          </div>
+
+          <!-- Project 3 -->
+          <div class="project-card">
+            <div class="project-meta">
+              <span>Carnegie Mellon University</span>
+              <span>2025 – 2026</span>
+            </div>
+            <h3>Autonomous Mobile Robots Stack</h3>
+            <p class="project-role">Autonomy &amp; Control Projects · General Robotics (ROB 16281)</p>
+            <p>
+              Engineered autonomous ground platforms covering state estimation, path planning, and trajectory tracking.
+            </p>
+            <ul class="project-bullets">
+              <li>Implemented low-level PID/LQR velocity and heading controllers with wheel odometry and IMU sensor fusion.</li>
+              <li>Designed computer vision pipelines on embedded hardware (Raspberry Pi) for feature extraction and obstacle detection.</li>
+              <li>Earned Grade A (4.0 / 4.0) across all robotics and control coursework at CMU.</li>
+            </ul>
+            <div class="pill-list">
+              <span class="pill">Python</span>
+              <span class="pill">State Estimation</span>
+              <span class="pill">Computer Vision</span>
+              <span class="pill">LQR</span>
+            </div>
+          </div>
+
+          <!-- Project 4 -->
+          <div class="project-card">
+            <div class="project-meta">
+              <span>Control Systems</span>
+              <span>EPFL &amp; CMU</span>
+            </div>
+            <h3>Inverted Pendulum Optimal Control</h3>
+            <p class="project-role">Nonlinear Modeling &amp; Kalman Filter Design</p>
+            <p>
+              Modeled the nonlinear cart-pole dynamics and evaluated frequency-domain vs. state-space control methods.
+            </p>
+            <ul class="project-bullets">
+              <li>Conducted root-locus and Bode analysis to define stability margins and pole-placement objectives.</li>
+              <li>Formulated continuous and discrete Linear Quadratic Regulators (LQR) to maximize disturbance rejection.</li>
+              <li>Implemented a Kalman Filter to reconstruct states from noisy sensor streams in MATLAB/Simulink.</li>
+            </ul>
+            <div class="pill-list">
+              <span class="pill">MATLAB / Simulink</span>
+              <span class="pill">LQR</span>
+              <span class="pill">Kalman Filter</span>
+              <span class="pill">State-Space</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ======================================================================
+         ACADEMICS & RELEVANT GRADES (NEW DEDICATED SECTION)
+         ====================================================================== -->
+    <section id="academics">
+      <div class="wrap">
+        <p class="sec-label">03 / Academic Transcripts</p>
+        <h2 class="sec-title">Academic track &amp; relevant grades.</h2>
+        <p class="sec-desc">
+          Official academic records from ETH Zürich, Carnegie Mellon University, and EPFL highlighting quantitative foundations in mathematics, dynamics, and control theory.
+        </p>
+
+        <div class="academics-container">
+          <!-- ETH Zurich Card -->
+          <div class="uni-card">
+            <div class="uni-header">
+              <div class="uni-title">
+                <h3>ETH Zürich</h3>
+                <p>M.Sc. Robotics, Systems and Control · RSL (Prof. Marco Hutter)</p>
+              </div>
+              <div class="uni-stats">
+                <span class="stat-pill highlight">Graduate Student (2026 → 2028)</span>
+                <span class="stat-pill">Zürich, Switzerland</span>
+              </div>
+            </div>
+            <p style="font-size:0.92rem; color:var(--muted); margin-bottom:14px;">
+              Graduate curriculum focused on robotic locomotion, autonomous navigation, and optimization:
+            </p>
+            <table class="grades-table">
+              <thead>
+                <tr>
+                  <th>Course Category</th>
+                  <th>Core Subject</th>
+                  <th style="text-align:right">Focus Area</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td class="code">Core Dynamics</td>
+                  <td class="course">Robot Dynamics</td>
+                  <td class="grade" style="color:var(--accent);">Kinematics &amp; Rigid-Body Dynamics</td>
+                </tr>
+                <tr>
+                  <td class="code">Optimization</td>
+                  <td class="course">Model Predictive Control (MPC)</td>
+                  <td class="grade" style="color:var(--accent);">Constrained Receding-Horizon Control</td>
+                </tr>
+                <tr>
+                  <td class="code">Optimal Control</td>
+                  <td class="course">Dynamic Programming &amp; Optimal Control (DPOC)</td>
+                  <td class="grade" style="color:var(--accent);">Bellman Equation &amp; Value Iteration</td>
+                </tr>
+                <tr>
+                  <td class="code">Machine Learning</td>
+                  <td class="course">Probabilistic Artificial Intelligence (PAI)</td>
+                  <td class="grade" style="color:var(--accent);">Bayesian ML, Gaussian Processes &amp; RL</td>
+                </tr>
+                <tr>
+                  <td class="code">Perception</td>
+                  <td class="course">Image Analysis &amp; Computer Vision (IACV)</td>
+                  <td class="grade" style="color:var(--accent);">Visual Odometry &amp; Spatial Geometry</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+          <!-- Carnegie Mellon University Card -->
+          <div class="uni-card">
+            <div class="uni-header">
+              <div class="uni-title">
+                <h3>Carnegie Mellon University (CMU)</h3>
+                <p>Exchange Year · Mechanical Engineering &amp; Robotics (CIT)</p>
+              </div>
+              <div class="uni-stats">
+                <span class="stat-pill highlight">Cumulative GPA: 4.00 / 4.00</span>
+                <span class="stat-pill highlight">Dean's List (Both Semesters)</span>
+                <span class="stat-pill">Pittsburgh, USA</span>
+              </div>
+            </div>
+            <table class="grades-table">
+              <thead>
+                <tr>
+                  <th>Course Code</th>
+                  <th>Course Title</th>
+                  <th style="text-align:right">Final Grade</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td class="code">ROB 16281</td>
+                  <td class="course">General Robotics</td>
+                  <td class="grade grade-top">A (4.0 / 4.0)</td>
+                </tr>
+                <tr>
+                  <td class="code">MEG 24451</td>
+                  <td class="course">Feedback Control Systems</td>
+                  <td class="grade grade-top">A (4.0 / 4.0)</td>
+                </tr>
+                <tr>
+                  <td class="code">STA 36410</td>
+                  <td class="course">Intro to Probability Modeling</td>
+                  <td class="grade grade-top">A (4.0 / 4.0)</td>
+                </tr>
+                <tr>
+                  <td class="code">ECE 18220</td>
+                  <td class="course">Electronic Devices &amp; Analysis</td>
+                  <td class="grade grade-top">A (4.0 / 4.0)</td>
+                </tr>
+                <tr>
+                  <td class="code">CEE 12755</td>
+                  <td class="course">Finite Element Mechanics I</td>
+                  <td class="grade grade-top">A (4.0 / 4.0)</td>
+                </tr>
+                <tr>
+                  <td class="code">MEG 24751</td>
+                  <td class="course">Solid Mechanics</td>
+                  <td class="grade grade-top">A (4.0 / 4.0)</td>
+                </tr>
+                <tr>
+                  <td class="code">MEG 24452</td>
+                  <td class="course">Mechanical Systems Experimentation</td>
+                  <td class="grade grade-top">A (4.0 / 4.0)</td>
+                </tr>
+                <tr>
+                  <td class="code">MEG 24322</td>
+                  <td class="course">Heat Transfer</td>
+                  <td class="grade grade-top">A (4.0 / 4.0)</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+          <!-- EPFL Card -->
+          <div class="uni-card">
+            <div class="uni-header">
+              <div class="uni-title">
+                <h3>École Polytechnique Fédérale de Lausanne (EPFL)</h3>
+                <p>B.Sc. Mechanical Engineering (2023 – 2026)</p>
+              </div>
+              <div class="uni-stats">
+                <span class="stat-pill highlight">Overall Average: 5.36 / 6.00</span>
+                <span class="stat-pill highlight">Severin B. Hacker Fellowship (2025)</span>
+                <span class="stat-pill">Lausanne, Switzerland</span>
+              </div>
+            </div>
+            <p style="font-size:0.8rem; color:var(--muted); margin-bottom:12px;">
+              *Swiss grading scale: 6.0 is the maximum possible grade; 4.0 is the passing grade.
+            </p>
+            <table class="grades-table">
+              <thead>
+                <tr>
+                  <th>Course Code</th>
+                  <th>Key Quantitative Course</th>
+                  <th style="text-align:right">Grade (out of 6.0)</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td class="code">MATH-251</td>
+                  <td class="course">Numerical Analysis (Analyse numérique)</td>
+                  <td class="grade grade-top">6.00 / 6.0 (Max)</td>
+                </tr>
+                <tr>
+                  <td class="code">HUM-123</td>
+                  <td class="course">Global Issues: Energy</td>
+                  <td class="grade grade-top">6.00 / 6.0 (Max)</td>
+                </tr>
+                <tr>
+                  <td class="code">ME-221</td>
+                  <td class="course">Dynamical Systems</td>
+                  <td class="grade grade-high">5.75 / 6.0</td>
+                </tr>
+                <tr>
+                  <td class="code">MATH-111</td>
+                  <td class="course">Linear Algebra (Algèbre linéaire)</td>
+                  <td class="grade grade-high">5.75 / 6.0</td>
+                </tr>
+                <tr>
+                  <td class="code">MATH-101</td>
+                  <td class="course">Analysis I (Analyse I)</td>
+                  <td class="grade grade-high">5.75 / 6.0</td>
+                </tr>
+                <tr>
+                  <td class="code">MATH-106</td>
+                  <td class="course">Analysis II (Analyse II)</td>
+                  <td class="grade grade-high">5.75 / 6.0</td>
+                </tr>
+                <tr>
+                  <td class="code">ME-232</td>
+                  <td class="course">Mechanics of Structures</td>
+                  <td class="grade grade-high">5.75 / 6.0</td>
+                </tr>
+                <tr>
+                  <td class="code">MATH-234</td>
+                  <td class="course">Probability and Statistics</td>
+                  <td class="grade grade-high">5.75 / 6.0</td>
+                </tr>
+                <tr>
+                  <td class="code">ME-213</td>
+                  <td class="course">Programming for Engineers (C / Python)</td>
+                  <td class="grade grade-high">5.75 / 6.0</td>
+                </tr>
+                <tr>
+                  <td class="code">EE-106</td>
+                  <td class="course">Electrical Engineering Science &amp; Technology</td>
+                  <td class="grade grade-high">5.75 / 6.0</td>
+                </tr>
+                <tr>
+                  <td class="code">MATH-202</td>
+                  <td class="course">Analysis III (Multivariable Calculus)</td>
+                  <td class="grade grade-high">5.50 / 6.0</td>
+                </tr>
+                <tr>
+                  <td class="code">MATH-207</td>
+                  <td class="course">Analysis IV (Vector Calculus &amp; PDEs)</td>
+                  <td class="grade grade-high">5.50 / 6.0</td>
+                </tr>
+                <tr>
+                  <td class="code">CS-119</td>
+                  <td class="course">Information, Computation, Communication</td>
+                  <td class="grade grade-high">5.50 / 6.0</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ======================================================================
+         EXPERIENCE
+         ====================================================================== -->
+    <section id="experience">
+      <div class="wrap">
+        <p class="sec-label">04 / Experience</p>
+        <h2 class="sec-title">Work &amp; engineering history.</h2>
+        <p class="sec-desc">Industry internships, software development, and academic coaching.</p>
+
+        <div class="timeline">
+          <div class="timeline-item">
+            <div class="timeline-head">
+              <h4>Bosch — Special Machinery Construction</h4>
+              <span class="timeline-date">2026 · Stuttgart, Germany</span>
+            </div>
+            <p class="timeline-org">Engineering &amp; AI Intern</p>
+            <p class="timeline-desc">
+              Engineered a proof-of-concept Retrieval-Augmented Generation (RAG) platform to support the SAP S/4HANA enterprise migration (Python, LangChain, ChromaDB, FastAPI). On the physical equipment side, designed custom special-machinery components and technical drawings in Autodesk Inventor with rapid 3D print prototyping.
+            </p>
+          </div>
+
+          <div class="timeline-item">
+            <div class="timeline-head">
+              <h4>Virtual Traffic Lights</h4>
+              <span class="timeline-date">2025 – 2026 · Pittsburgh, USA</span>
+            </div>
+            <p class="timeline-org">Software Developer</p>
+            <p class="timeline-desc">
+              Built backend FastAPI data pipelines parsing real-time vehicle telemetry and turn counts for an intelligent traffic monitoring platform. Created frontend visualization components in React / TypeScript and containerized deployments with Docker.
+            </p>
+          </div>
+
+          <div class="timeline-item">
+            <div class="timeline-head">
+              <h4>EPFL (École Polytechnique Fédérale de Lausanne)</h4>
+              <span class="timeline-date">2024 – 2025 · Lausanne, Switzerland</span>
+            </div>
+            <p class="timeline-org">Teaching Assistant · Mechanical Engineering</p>
+            <p class="timeline-desc">
+              TA for C programming (Information, Computation &amp; Communication) and Electrical Science laboratories. Guided undergraduate students through algorithmic debugging, supervised laboratory experiments, and graded examinations.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ======================================================================
+         TECHNICAL STACK
+         ====================================================================== -->
+    <section id="stack">
+      <div class="wrap">
+        <p class="sec-label">05 / Toolkit</p>
+        <h2 class="sec-title">Technical stack.</h2>
+        <p class="sec-desc">Tools and frameworks I leverage across physical simulation, control theory, and hardware.</p>
+
+        <div class="stack-grid">
+          <div class="stack-card">
+            <h4>Methods &amp; Theory</h4>
+            <ul>
+              <li>Reinforcement Learning (PPO)</li>
+              <li>Model Predictive Control (MPC)</li>
+              <li>Optimal Control &amp; LQR</li>
+              <li>Kalman State Estimation</li>
+              <li>Rigid-Body Dynamics</li>
+              <li>Probabilistic AI / Bayesian</li>
+            </ul>
+          </div>
+
+          <div class="stack-card">
+            <h4>Robotics &amp; Sim</h4>
+            <ul>
+              <li>ROS 2 (Humble / colcon)</li>
+              <li>MuJoCo</li>
+              <li>Isaac Lab / Isaac Sim</li>
+              <li>Gazebo</li>
+              <li>URDF / MJCF Modeling</li>
+              <li>Raspberry Pi · Arduino</li>
+            </ul>
+          </div>
+
+          <div class="stack-card">
+            <h4>Programming</h4>
+            <ul>
+              <li>Python (PyTorch, NumPy)</li>
+              <li>C / C++</li>
+              <li>MATLAB &amp; Simulink</li>
+              <li>TypeScript / React</li>
+              <li>Bash / Shell scripting</li>
+            </ul>
+          </div>
+
+          <div class="stack-card">
+            <h4>Hardware &amp; Tools</h4>
+            <ul>
+              <li>Autodesk Inventor</li>
+              <li>Fusion 360 · CATIA</li>
+              <li>Git · GitHub Actions CI</li>
+              <li>Docker · Linux</li>
+              <li>Rapid Prototyping / 3D Print</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ======================================================================
+         CONTACT
+         ====================================================================== -->
+    <section id="contact" style="border-bottom:none;">
+      <div class="wrap">
+        <div class="contact-box">
+          <p class="sec-label">06 / Contact</p>
+          <h2 class="sec-title" style="margin-bottom:12px;">Let's build intelligent robots.</h2>
+          <p style="color:var(--muted); max-width:60ch; font-size:1.02rem;">
+            I am currently open to part-time working-student positions (20–40%) and robotics research internships in Zürich. If you are developing locomotion policies, whole-body controllers, or physical AI systems, let's connect.
+          </p>
+
+          <div class="contact-email">
+            <code id="mailCode">jon.fouquet@gmail.com</code>
+            <button id="copyBtn" class="copy-btn">Copy Email</button>
+          </div>
+
+          <div class="social-links">
+            <a href="https://github.com/jona-droid" target="_blank" rel="noopener noreferrer" class="social-btn">
+              GitHub ↗
+            </a>
+            <a href="https://www.linkedin.com/in/jonathan-fouquet/" target="_blank" rel="noopener noreferrer" class="social-btn">
+              LinkedIn ↗
+            </a>
+            <a href="cv.pdf" target="_blank" rel="noopener noreferrer" class="social-btn">
+              Resume (CV) ↗
+            </a>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- ========================================================================
+       FOOTER
+       ======================================================================== -->
+  <footer>
+    <div class="wrap footer-inner">
+      <span>© <span id="year">2026</span> Jonathan Fouquet · Zürich, Switzerland</span>
+      <a href="#about" style="color:var(--muted);">Back to top ↑</a>
+    </div>
+  </footer>
+
+  <!-- ========================================================================
+       SCRIPTS (Theme, Copy Email)
+       ======================================================================== -->
+  <script>
+    // Copy Email Functionality
+    const copyBtn = document.getElementById('copyBtn');
+    const mailText = document.getElementById('mailCode').innerText;
+    copyBtn.addEventListener('click', () => {
+      navigator.clipboard.writeText(mailText).then(() => {
+        copyBtn.innerText = 'Copied ✓';
+        setTimeout(() => { copyBtn.innerText = 'Copy Email'; }, 1600);
+      });
+    });
+
+    // Theme Toggle (Default Light)
+    const themeBtn = document.getElementById('themeToggle');
+    const root = document.documentElement;
+    themeBtn.addEventListener('click', () => {
+      const current = root.getAttribute('data-theme');
+      const next = current === 'dark' ? 'light' : 'dark';
+      root.setAttribute('data-theme', next);
+      localStorage.setItem('theme-pref', next);
+    });
+
+    const saved = localStorage.getItem('theme-pref');
+    if (saved) {
+      root.setAttribute('data-theme', saved);
+    } else {
+      root.setAttribute('data-theme', 'light');
+    }
+
+    document.getElementById('year').innerText = new Date().getFullYear();
+  </script>
+</body>
+</html>
