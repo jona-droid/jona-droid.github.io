@@ -1,0 +1,564 @@
+<title>Jonathan Fouquet</title>
+<meta name="description" content="Jonathan Fouquet — ETH Zürich robotics master's student working on reinforcement learning for legged and humanoid robots.">
+<!-- Open Graph Tags for LinkedIn -->
+<meta property="og:title" content="Jonathan Fouquet — Robotics & RL Portfolio">
+<meta property="og:description" content="ETH Zürich robotics master's student working on reinforcement learning, optimal control, and legged/humanoid robots.">
+<meta property="og:url" content="https://jonathanfouquet.dev/">
+<meta property="og:type" content="website">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wght@500;600;700;800&family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@400;500;600&display=swap">
+<style>
+  /* Layout: single-scroll, left-aligned sections on a blue-graphite "sim viewport" ground; one teal signal accent, amber reserved for status. Dark-first. */
+  :root{
+    --bg:#0C0F14; --surface:#12161D; --surface-2:#171C25; --line:#242c38;
+    --fg:#EAE9E3; --muted:#9aa4b2; --faint:#636d7c;
+    --accent:#3DD3C2; --accent-soft:rgba(61,211,194,.14); --accent-ink:#07110F;
+    --amber:#E6B23A;
+    color-scheme:dark;
+    --maxw:1080px; --prose:66ch;
+    --f-display:"Archivo",system-ui,sans-serif;
+    --f-body:"IBM Plex Sans",system-ui,sans-serif;
+    --f-mono:"IBM Plex Mono",ui-monospace,SFMono-Regular,Menlo,monospace;
+  }
+  @media (prefers-color-scheme:light){
+    :root:not([data-theme="dark"]){
+      --bg:#F3F5F8; --surface:#FFFFFF; --surface-2:#EAEEF2; --line:#D9DFE6;
+      --fg:#141922; --muted:#51606f; --faint:#8a95a3;
+      --accent:#0E9E8D; --accent-soft:rgba(14,158,141,.12); --accent-ink:#FFFFFF;
+      --amber:#9c6b12;
+      color-scheme:light;
+    }
+  }
+  :root[data-theme="light"]{
+    --bg:#F3F5F8; --surface:#FFFFFF; --surface-2:#EAEEF2; --line:#D9DFE6;
+    --fg:#141922; --muted:#51606f; --faint:#8a95a3;
+    --accent:#0E9E8D; --accent-soft:rgba(14,158,141,.12); --accent-ink:#FFFFFF;
+    --amber:#9c6b12;
+    color-scheme:light;
+  }
+  :root[data-theme="dark"]{
+    --bg:#0C0F14; --surface:#12161D; --surface-2:#171C25; --line:#242c38;
+    --fg:#EAE9E3; --muted:#9aa4b2; --faint:#636d7c;
+    --accent:#3DD3C2; --accent-soft:rgba(61,211,194,.14); --accent-ink:#07110F;
+    --amber:#E6B23A;
+    color-scheme:dark;
+  }
+
+  *{box-sizing:border-box}
+  html{-webkit-text-size-adjust:100%}
+  @media (prefers-reduced-motion:no-preference){html{scroll-behavior:smooth}}
+  body{
+    background:var(--bg); color:var(--fg);
+    font-family:var(--f-body); font-size:16px; line-height:1.6;
+    -webkit-font-smoothing:antialiased; text-rendering:optimizeLegibility;
+    overflow-x:hidden;
+  }
+  .wrap{max-width:var(--maxw); margin-inline:auto; padding-inline:clamp(16px,5vw,40px)}
+  a{color:inherit}
+  h1,h2,h3{font-family:var(--f-display); text-wrap:balance; margin:0; line-height:1.08; letter-spacing:-.01em}
+  p{margin:0}
+  ::selection{background:var(--accent); color:var(--accent-ink)}
+  :focus-visible{outline:2px solid var(--accent); outline-offset:3px; border-radius:3px}
+
+  .eyebrow{font-family:var(--f-mono); font-size:.72rem; letter-spacing:.22em; text-transform:uppercase; color:var(--accent)}
+  .mono{font-family:var(--f-mono)}
+  .muted{color:var(--muted)}
+
+  /* ---------- Header ---------- */
+  header{
+    position:sticky; top:env(safe-area-inset-top,0px); z-index:50;
+    background:color-mix(in srgb,var(--bg) 82%, transparent);
+    backdrop-filter:blur(10px); -webkit-backdrop-filter:blur(10px);
+    border-bottom:1px solid var(--line);
+  }
+  .nav{display:flex; align-items:center; gap:16px; height:60px}
+  .brand{font-family:var(--f-mono); font-weight:500; letter-spacing:.04em; text-decoration:none; font-size:.95rem; display:flex; align-items:center; gap:9px}
+  .brand .dot{width:9px; height:9px; border-radius:50%; background:var(--accent); box-shadow:0 0 0 4px var(--accent-soft)}
+  .nav-spacer{flex:1}
+  .nav-links{display:flex; gap:4px; align-items:center}
+  .nav-links a{font-family:var(--f-mono); font-size:.78rem; letter-spacing:.04em; text-decoration:none; color:var(--muted); padding:7px 11px; border-radius:7px}
+  .nav-links a:hover{color:var(--fg); background:var(--surface-2)}
+  .nav-links a[aria-current="true"]{color:var(--accent)}
+  .icon-btn{display:inline-grid; place-items:center; width:38px; height:38px; border:1px solid var(--line); background:var(--surface); color:var(--fg); border-radius:9px; cursor:pointer}
+  .icon-btn:hover{border-color:var(--accent); color:var(--accent)}
+  #navToggle{display:none}
+  .sun{display:none} .moon{display:block}
+  :root[data-theme="light"] .sun,:root:not([data-theme="dark"]) .sun{display:block}
+  :root[data-theme="light"] .moon,:root:not([data-theme="dark"]) .moon{display:none}
+  :root[data-theme="dark"] .sun{display:none} :root[data-theme="dark"] .moon{display:block}
+
+  /* ---------- Sections ---------- */
+  section{padding-block:clamp(56px,9vw,104px); border-bottom:1px solid var(--line)}
+  .sec-head{display:flex; align-items:baseline; gap:14px; margin-bottom:34px; flex-wrap:wrap}
+  .sec-head .num{font-family:var(--f-mono); font-size:.78rem; color:var(--faint)}
+  .sec-head h2{font-size:clamp(1.5rem,3.4vw,2.1rem); font-weight:700}
+
+  /* ---------- Hero ---------- */
+  .hero{display:grid; grid-template-columns:1.15fr .85fr; gap:clamp(28px,5vw,56px); align-items:center; padding-block:clamp(52px,8vw,92px); border-bottom:1px solid var(--line)}
+  .hero h1{font-size:clamp(2.4rem,6.6vw,4.3rem); font-weight:800; margin:18px 0 0; letter-spacing:-.025em}
+  .hero .lede{font-size:clamp(1.05rem,2.2vw,1.3rem); color:var(--fg); margin-top:20px; max-width:34ch; line-height:1.4}
+  .hero .bio{color:var(--muted); margin-top:16px; max-width:46ch}
+  .status{display:inline-flex; align-items:center; gap:9px; font-family:var(--f-mono); font-size:.76rem; letter-spacing:.03em; color:var(--muted); border:1px solid var(--line); background:var(--surface); padding:7px 12px; border-radius:999px; margin-top:24px}
+  .status .pulse{width:8px; height:8px; border-radius:50%; background:var(--amber); position:relative}
+  @media (prefers-reduced-motion:no-preference){.status .pulse::after{content:""; position:absolute; inset:-5px; border-radius:50%; border:1px solid var(--amber); animation:ping 2.4s ease-out infinite}}
+  @keyframes ping{0%{transform:scale(.6);opacity:.9}100%{transform:scale(1.9);opacity:0}}
+  .cta-row{display:flex; flex-wrap:wrap; gap:12px; margin-top:30px}
+  .btn{font-family:var(--f-mono); font-size:.82rem; letter-spacing:.02em; text-decoration:none; padding:11px 18px; border-radius:10px; border:1px solid var(--line); background:var(--surface); color:var(--fg); display:inline-flex; align-items:center; gap:8px; transition:border-color .15s,transform .15s}
+  .btn:hover{border-color:var(--accent); transform:translateY(-1px)}
+  .btn.primary{background:var(--accent); color:var(--accent-ink); border-color:var(--accent); font-weight:500}
+  .btn.primary:hover{filter:brightness(1.06)}
+  .meta-loc{margin-top:22px; font-family:var(--f-mono); font-size:.76rem; color:var(--faint); letter-spacing:.04em}
+
+  .viewport{border:1px solid var(--line); background:linear-gradient(180deg,var(--surface),var(--bg)); border-radius:14px; padding:16px; position:relative; overflow:hidden}
+  .viewport .vp-top{display:flex; justify-content:space-between; font-family:var(--f-mono); font-size:.68rem; letter-spacing:.12em; text-transform:uppercase; color:var(--faint); margin-bottom:6px}
+  .viewport svg{display:block; width:100%; height:auto}
+
+  /* ---------- Focus / project cards ---------- */
+  .focus-grid{display:grid; grid-template-columns:repeat(3,1fr); gap:16px}
+  .card{background:var(--surface); border:1px solid var(--line); border-radius:14px; padding:22px; display:flex; flex-direction:column; gap:12px}
+  .card .tag{font-family:var(--f-mono); font-size:.68rem; letter-spacing:.14em; text-transform:uppercase; color:var(--accent)}
+  .card h3{font-size:1.18rem; font-weight:700}
+  .card p{color:var(--muted); font-size:.95rem}
+  .card .kit{margin-top:auto; font-family:var(--f-mono); font-size:.72rem; color:var(--faint); letter-spacing:.02em}
+
+  /* ---------- Work / projects ---------- */
+  .work{display:grid; grid-template-columns:.9fr 1.1fr; gap:clamp(20px,4vw,40px); align-items:start}
+  .work-list{display:flex; flex-direction:column; gap:8px}
+  .work-item{text-align:left; width:100%; background:transparent; border:1px solid transparent; border-left:2px solid var(--line); color:var(--fg); padding:16px 18px; border-radius:0 10px 10px 0; cursor:pointer; display:flex; flex-direction:column; gap:4px; transition:background .15s,border-color .15s}
+  .work-item:hover{background:var(--surface)}
+  .work-item[aria-selected="true"]{background:var(--surface); border-left-color:var(--accent)}
+  .work-item .wt{font-family:var(--f-display); font-weight:600; font-size:1.05rem}
+  .work-item .ws{font-family:var(--f-mono); font-size:.72rem; color:var(--faint); letter-spacing:.03em}
+  .work-panel{background:var(--surface); border:1px solid var(--line); border-radius:14px; padding:clamp(20px,3vw,30px); min-width:0}
+  .work-panel .frame{border:1px solid var(--line); border-radius:10px; background:
+    repeating-linear-gradient(90deg,transparent 0 23px,color-mix(in srgb,var(--line) 55%,transparent) 23px 24px),
+    repeating-linear-gradient(0deg,transparent 0 23px,color-mix(in srgb,var(--line) 55%,transparent) 23px 24px),
+    var(--surface-2);
+    aspect-ratio:16/7; display:flex; align-items:flex-end; justify-content:space-between; padding:12px; margin-bottom:18px}
+  .work-panel .frame .tagpair{font-family:var(--f-mono); font-size:.68rem; letter-spacing:.1em; text-transform:uppercase; color:var(--accent)}
+  .work-panel h3{font-size:1.3rem; font-weight:700}
+  .work-panel .role{font-family:var(--f-mono); font-size:.74rem; color:var(--muted); letter-spacing:.03em; margin:6px 0 14px}
+  .work-panel ul{margin:0 0 16px; padding-left:18px; color:var(--muted); display:flex; flex-direction:column; gap:7px}
+  .work-panel ul li::marker{color:var(--accent)}
+  .chips{display:flex; flex-wrap:wrap; gap:7px}
+  .chip{font-family:var(--f-mono); font-size:.7rem; letter-spacing:.02em; color:var(--muted); border:1px solid var(--line); border-radius:999px; padding:4px 10px; background:var(--bg)}
+  .note{font-family:var(--f-mono); font-size:.72rem; color:var(--faint); margin-top:14px}
+
+  /* ---------- Background (timeline) ---------- */
+  .bg-grid{display:grid; grid-template-columns:1fr 1fr; gap:clamp(28px,5vw,56px)}
+  .track-label{font-family:var(--f-mono); font-size:.72rem; letter-spacing:.16em; text-transform:uppercase; color:var(--faint); margin-bottom:18px}
+  .tl{display:flex; flex-direction:column; gap:4px}
+  .tl-item{display:grid; grid-template-columns:auto 1fr; gap:16px; padding:16px 0; border-top:1px solid var(--line)}
+  .tl-item:first-child{border-top:0}
+  .tl-item .when{font-family:var(--f-mono); font-size:.74rem; color:var(--accent); white-space:nowrap; padding-top:3px}
+  .tl-item h3{font-size:1.05rem; font-weight:600}
+  .tl-item .org{color:var(--muted); font-size:.92rem; margin-top:2px}
+  .tl-item .desc{color:var(--muted); font-size:.9rem; margin-top:8px}
+  .tl-item .award{display:inline-block; margin-top:9px; font-family:var(--f-mono); font-size:.72rem; color:var(--amber); border:1px solid color-mix(in srgb,var(--amber) 45%,var(--line)); border-radius:6px; padding:2px 8px}
+
+  /* ---------- Capabilities ---------- */
+  .caps{display:grid; grid-template-columns:repeat(4,1fr); gap:16px}
+  .cap h3{font-family:var(--f-mono); font-size:.72rem; letter-spacing:.14em; text-transform:uppercase; color:var(--accent); margin-bottom:12px; font-weight:500}
+  .cap ul{list-style:none; margin:0; padding:0; display:flex; flex-direction:column; gap:7px}
+  .cap li{font-size:.92rem; color:var(--muted)}
+
+  /* ---------- Contact ---------- */
+  .contact-inner{display:flex; flex-direction:column; gap:22px; max-width:var(--prose)}
+  .contact-inner h2{font-size:clamp(1.8rem,4.5vw,2.8rem); font-weight:800; letter-spacing:-.02em}
+  .mail{display:flex; align-items:center; gap:12px; flex-wrap:wrap}
+  .mail code{font-family:var(--f-mono); font-size:clamp(.95rem,2.4vw,1.15rem); background:var(--surface); border:1px solid var(--line); padding:10px 14px; border-radius:10px; color:var(--fg)}
+  .copy{font-family:var(--f-mono); font-size:.76rem; cursor:pointer; border:1px solid var(--line); background:var(--surface); color:var(--muted); padding:10px 13px; border-radius:10px}
+  .copy:hover{border-color:var(--accent); color:var(--accent)}
+  .socials{display:flex; gap:10px; flex-wrap:wrap}
+  .social{font-family:var(--f-mono); font-size:.78rem; text-decoration:none; color:var(--muted); border:1px solid var(--line); background:var(--surface); padding:10px 14px; border-radius:10px; display:inline-flex; gap:8px; align-items:center}
+  .social[href]:hover{border-color:var(--accent); color:var(--accent)}
+  .social.pending{opacity:.6; cursor:default}
+  .social.pending .hint{color:var(--faint)}
+
+  footer{padding-block:28px}
+  .foot{display:flex; justify-content:space-between; align-items:center; gap:16px; flex-wrap:wrap; font-family:var(--f-mono); font-size:.72rem; color:var(--faint)}
+  .foot a{color:var(--muted); text-decoration:none}
+  .foot a:hover{color:var(--accent)}
+
+  /* ---------- Responsive ---------- */
+  @media (max-width:860px){
+    .hero{grid-template-columns:1fr}
+    .focus-grid{grid-template-columns:1fr}
+    .work{grid-template-columns:1fr}
+    .bg-grid{grid-template-columns:1fr}
+    .caps{grid-template-columns:repeat(2,1fr)}
+  }
+  @media (max-width:640px){
+    .nav-links{position:absolute; top:100%; left:0; right:0; flex-direction:column; align-items:stretch; gap:2px; background:var(--bg); border-bottom:1px solid var(--line); padding:10px clamp(16px,5vw,40px) 16px}
+    .nav-links[hidden]{display:none}
+    .nav-links a{padding:11px; font-size:.85rem}
+    #navToggle{display:inline-grid}
+  }
+  @media (prefers-reduced-motion:reduce){*{animation:none!important; transition:none!important}}
+</style>
+
+<header>
+  <div class="wrap nav">
+    <a class="brand" href="#top"><span class="dot" aria-hidden="true"></span>jonathan<span class="muted">.fouquet</span></a>
+    <div class="nav-spacer"></div>
+    <nav>
+      <ul class="nav-links" id="navLinks" style="list-style:none;margin:0;padding:0">
+        <li><a href="#focus">focus</a></li>
+        <li><a href="#work">work</a></li>
+        <li><a href="#projects">projects</a></li>
+        <li><a href="#background">background</a></li>
+        <li><a href="#stack">stack</a></li>
+        <li><a href="#contact">contact</a></li>
+      </ul>
+    </nav>
+    <button class="icon-btn" id="navToggle" aria-label="Toggle menu" aria-expanded="false" aria-controls="navLinks">
+      <svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M2 4h12M2 8h12M2 12h12"/></svg>
+    </button>
+    <button class="icon-btn" id="themeToggle" aria-label="Toggle colour theme">
+      <svg class="moon" width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.4"><path d="M13.5 9.5A5.5 5.5 0 0 1 6.5 2.5a5.5 5.5 0 1 0 7 7Z"/></svg>
+      <svg class="sun" width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.4"><circle cx="8" cy="8" r="3.2"/><path d="M8 1v2M8 13v2M1 8h2M13 8h2M3 3l1.4 1.4M11.6 11.6L13 13M13 3l-1.4 1.4M4.4 11.6L3 13"/></svg>
+    </button>
+  </div>
+</header>
+
+<main id="top">
+  <section class="hero wrap" style="border-bottom:0">
+    <div>
+      <span class="eyebrow">Robotics · Reinforcement Learning</span>
+      <h1>Jonathan Fouquet</h1>
+      <p class="lede">Teaching legged and humanoid robots to move — through reinforcement learning, optimal control, and a great deal of simulation.</p>
+      <p class="bio">Master's student in Robotics, Systems and Control at ETH Zürich. I work at the seam between learned policies and model-based control, and on the interfaces that let people drive robots.</p>
+      <div class="cta-row">
+        <a class="btn primary" href="#focus">What I work on</a>
+        <a class="btn" href="#background">Background</a>
+        <a class="btn" href="#contact">Get in touch</a>
+      </div>
+      <p class="meta-loc">◰ Zürich, Switzerland · German · French · English</p>
+    </div>
+    <div class="viewport" aria-hidden="true">
+      <div class="vp-top"><span>policy training</span><span id="vpReturn">return ↑</span></div>
+      <svg id="rewardSvg" viewBox="0 0 600 300" role="img" aria-label="A reinforcement-learning training curve: episode return rising and plateauing over episodes."></svg>
+    </div>
+  </section>
+
+  <section id="focus" class="wrap">
+    <div class="sec-head"><span class="num">01</span><h2>What I want to work on</h2></div>
+    <div class="focus-grid">
+      <div class="card">
+        <span class="tag">Learning</span>
+        <h3>RL for locomotion</h3>
+        <p>Training control policies in simulation for legged and humanoid robots — whole-body skills, robustness to pushes and terrain, and getting them to survive the jump from sim to the real machine.</p>
+        <span class="kit">reward shaping · PPO · sim-to-real</span>
+      </div>
+      <div class="card">
+        <span class="tag">Control</span>
+        <h3>Model-based control &amp; planning</h3>
+        <p>MPC, optimal control and planning as the backbone a learned policy can lean on — blending guarantees from a model with the adaptability of learning.</p>
+        <span class="kit">MPC · LQR / DP · receding horizon</span>
+      </div>
+      <div class="card">
+        <span class="tag">Interface</span>
+        <h3>Human–robot interaction</h3>
+        <p>Closing the loop back to the operator: EMG and intent, shared control, and force / haptic feedback in teleoperation — so a person and a robot form one stable loop.</p>
+        <span class="kit">EMG · shared control · bilateral teleop</span>
+      </div>
+    </div>
+  </section>
+
+  <section id="work" class="wrap">
+    <div class="sec-head"><span class="num">02</span><h2>Current work</h2></div>
+    <div class="work">
+      <div class="work-list" role="tablist" aria-label="Current work">
+        <button class="work-item" role="tab" aria-selected="true" aria-controls="wp" data-i="0">
+          <span class="wt">ETHRC Humanoid — Whole-Body Control</span>
+          <span class="ws">ETH Robotics Club · ROS 2 / MuJoCo</span>
+        </button>
+        <button class="work-item" role="tab" aria-selected="false" aria-controls="wp" data-i="1">
+          <span class="wt">Prosthetic Hand — Intuitive Control</span>
+          <span class="ws">ETHRC HRI Team · EMG / ML</span>
+        </button>
+        <button class="work-item" role="tab" aria-selected="false" aria-controls="wp" data-i="2">
+          <span class="wt">Reinforcement Learning for Control</span>
+          <span class="ws">ETH Computational Robotics Lab</span>
+        </button>
+      </div>
+      <div class="work-panel" id="wp" role="tabpanel"></div>
+    </div>
+  </section>
+
+  <section id="projects" class="wrap">
+    <div class="sec-head"><span class="num">03</span><h2>Selected projects</h2></div>
+    <div class="focus-grid">
+      <div class="card">
+        <span class="tag">Control</span>
+        <h3>Inverted-pendulum control</h3>
+        <p>Modelled the nonlinear dynamics and designed PID control via frequency-domain analysis (root locus, Bode), then pole placement and LQR to meet strict stability margins — with a Kalman filter rejecting sensor noise and disturbances.</p>
+        <span class="kit">PID · LQR · Kalman · MATLAB / Simulink</span>
+      </div>
+      <div class="card">
+        <span class="tag">Robotics</span>
+        <h3>Autonomous robots · CMU</h3>
+        <p>Built several autonomous robotic systems across the stack: low-level PID and LQR control loops, odometry-based localization and path planning, and computer-vision / neural-network perception.</p>
+        <span class="kit">Python · Raspberry Pi · CV · CAD</span>
+      </div>
+      <div class="card">
+        <span class="tag">Signals</span>
+        <h3>Oscilloscope signal pipeline</h3>
+        <p>Engineered a C and LabVIEW pipeline to extract oscilloscope traces from images and automate signal reconstruction, with a MATLAB algorithm for signal fitting and visualization.</p>
+        <span class="kit">C · LabVIEW · MATLAB</span>
+      </div>
+    </div>
+  </section>
+
+  <section id="background" class="wrap">
+    <div class="sec-head"><span class="num">04</span><h2>Background</h2></div>
+    <div class="bg-grid">
+      <div>
+        <p class="track-label">Education</p>
+        <div class="tl">
+          <div class="tl-item">
+            <span class="when">2026 →</span>
+            <div>
+              <h3>MSc Robotics, Systems and Control</h3>
+              <div class="org">ETH Zürich · advised within RSL (Marco Hutter)</div>
+              <div class="desc">Core: Robot Dynamics · Model Predictive Control · Probabilistic Artificial Intelligence · Image Analysis &amp; Computer Vision · Dynamic Programming &amp; Optimal Control. Next: 3D Vision · Recursive Estimation · Autonomous Mobile Robots.</div>
+            </div>
+          </div>
+          <div class="tl-item">
+            <span class="when">2025–26</span>
+            <div>
+              <h3>Exchange — Mechanical Engineering &amp; Robotics</h3>
+              <div class="org">Carnegie Mellon University, Pittsburgh · GPA 4.0 / 4.0</div>
+              <div class="desc">A full year of robotics in practice — General Robotics, Feedback Control Systems and Probability Modeling, with hands-on autonomy projects.</div>
+              <span class="award">Dean's List · both semesters</span>
+            </div>
+          </div>
+          <div class="tl-item">
+            <span class="when">2023–26</span>
+            <div>
+              <h3>BSc Mechanical Engineering</h3>
+              <div class="org">EPFL, Lausanne · 5.36 / 6.00</div>
+              <div class="desc">Mechanical engineering foundations — mechanics, control, numerical analysis and design.</div>
+              <span class="award">Severin B. Hacker Fellowship · 2025</span>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div>
+        <p class="track-label">Experience</p>
+        <div class="tl">
+          <div class="tl-item">
+            <span class="when">2026 →</span>
+            <div>
+              <h3>ETH Robotics Club</h3>
+              <div class="org">Humanoid project · Human–Robot Interaction team</div>
+              <div class="desc">Hands-on with the humanoid whole-body control and teleoperation stack (ROS 2, MuJoCo), and joining the new HRI team's prosthetic-hand project on the intuitive-control (EMG) side.</div>
+            </div>
+          </div>
+          <div class="tl-item">
+            <span class="when">2026</span>
+            <div>
+              <h3>Engineering &amp; AI Intern</h3>
+              <div class="org">Bosch, Stuttgart · Special Machinery Construction</div>
+              <div class="desc">Built a proof-of-concept RAG pipeline integrating LLMs into corporate workflows for the SAP S/4HANA transition — Python, LangChain, ChromaDB, FastAPI / Streamlit, parsing Confluence / Jira / PDF / Excel with Requests, Pandas, PyMuPDF. On the hardware side, designed custom special-machinery equipment and technical drawings in Autodesk Inventor, using 3D printing for rapid prototyping.</div>
+            </div>
+          </div>
+          <div class="tl-item">
+            <span class="when">2025–26</span>
+            <div>
+              <h3>Software Developer</h3>
+              <div class="org">Virtual Traffic Lights, Pittsburgh</div>
+              <div class="desc">On an intelligent traffic-monitoring platform: built FastAPI backend endpoints for critical data streams (red-light-running incidents, vehicle turn counts) and React / TypeScript frontend components for visualization and analysis. Stack: Python, TypeScript, Docker.</div>
+            </div>
+          </div>
+          <div class="tl-item">
+            <span class="when">2024–25</span>
+            <div>
+              <h3>Teaching Assistant</h3>
+              <div class="org">EPFL, Lausanne</div>
+              <div class="desc">TA for Mechanical Engineering: C programming (Information, Computing &amp; Communication) and Electrical Science &amp; Technology labs — assisting, evaluating and grading student work.</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="stack" class="wrap">
+    <div class="sec-head"><span class="num">05</span><h2>Stack</h2></div>
+    <div class="caps">
+      <div class="cap">
+        <h3>Methods</h3>
+        <ul>
+          <li>Reinforcement learning</li>
+          <li>Model Predictive Control</li>
+          <li>Optimal control &amp; DP</li>
+          <li>PID / LQR control</li>
+          <li>Kalman filtering &amp; estimation</li>
+          <li>Probabilistic / Bayesian ML</li>
+          <li>Rigid-body dynamics</li>
+        </ul>
+      </div>
+      <div class="cap">
+        <h3>Languages</h3>
+        <ul>
+          <li>Python</li>
+          <li>C / C++</li>
+          <li>MATLAB</li>
+          <li>JavaScript / TS</li>
+        </ul>
+      </div>
+      <div class="cap">
+        <h3>Robotics &amp; sim</h3>
+        <ul>
+          <li>ROS 2 (colcon)</li>
+          <li>MuJoCo</li>
+          <li>Isaac Lab (learning)</li>
+          <li>Arduino · ESP32 · Raspberry Pi</li>
+        </ul>
+      </div>
+      <div class="cap">
+        <h3>Engineering &amp; tools</h3>
+        <ul>
+          <li>CAD — Fusion 360, Inventor, CATIA</li>
+          <li>3D printing / prototyping</li>
+          <li>Git · Docker · Linux</li>
+          <li>REST APIs · SAP</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <section id="contact" class="wrap" style="border-bottom:0">
+    <div class="contact-inner">
+      <span class="eyebrow">Contact</span>
+      <h2>Let's talk robots.</h2>
+      <p class="muted">If you have a working-student role, an internship, or a project in RL for robotics, locomotion, or teleoperation — I'd love to hear about it.</p>
+      <div class="mail">
+        <code id="email">jon.fouquet@gmail.com</code>
+        <button class="copy" id="copyBtn" type="button">Copy</button>
+      </div>
+      <div class="socials">
+        <a class="social" href="https://github.com/jona-droid" target="_blank" rel="noopener">GitHub <span aria-hidden="true">↗</span></a>
+        <a class="social" href="https://www.linkedin.com/in/jonathan-fouquet/" target="_blank" rel="noopener">LinkedIn <span aria-hidden="true">↗</span></a>
+        <a class="social" href="cv.pdf" target="_blank" rel="noopener">CV / Résumé <span aria-hidden="true">↗</span></a>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="wrap foot">
+    <span>© <span id="yr"></span> Jonathan Fouquet</span>
+    <a href="#top">Back to top ↑</a>
+  </div>
+</footer>
+
+<script>
+(function(){
+  "use strict";
+  var root=document.documentElement;
+
+  /* theme */
+  try{var saved=localStorage.getItem("jf-theme"); if(saved)root.setAttribute("data-theme",saved);}catch(e){}
+  document.getElementById("themeToggle").addEventListener("click",function(){
+    var cur=root.getAttribute("data-theme");
+    var isDark = cur ? cur==="dark" : matchMedia("(prefers-color-scheme: dark)").matches;
+    var next=isDark?"light":"dark";
+    root.setAttribute("data-theme",next);
+    try{localStorage.setItem("jf-theme",next);}catch(e){}
+  });
+
+  /* mobile nav */
+  var links=document.getElementById("navLinks"), tog=document.getElementById("navToggle");
+  function narrow(){return matchMedia("(max-width:640px)").matches;}
+  function setMenu(open){ if(narrow()){links.hidden=!open;} else {links.hidden=false;} tog.setAttribute("aria-expanded",open?"true":"false"); }
+  setMenu(false);
+  tog.addEventListener("click",function(){ setMenu(links.hidden); });
+  links.addEventListener("click",function(e){ if(e.target.tagName==="A"&&narrow())setMenu(false); });
+  addEventListener("resize",function(){ if(!narrow()){links.hidden=false; tog.setAttribute("aria-expanded","false");} else if(tog.getAttribute("aria-expanded")!=="true"){links.hidden=true;} });
+
+  /* reward curve */
+  (function(){
+    var svg=document.getElementById("rewardSvg"); if(!svg)return;
+    var W=600,H=300, mL=40,mR=16,mT=16,mB=34;
+    var x0=mL,x1=W-mR,y0=H-mB,y1=mT;
+    function ael(n,a){var e=document.createElementNS("http://www.w3.org/2000/svg",n);for(var k in a)e.setAttribute(k,a[k]);return e;}
+    var i;
+    for(i=0;i<=4;i++){var gy=y0+(y1-y0)*i/4; svg.appendChild(ael("line",{x1:x0,y1:gy,x2:x1,y2:gy,stroke:"var(--line)","stroke-width":1}));}
+    svg.appendChild(ael("line",{x1:x0,y1:y0,x2:x1,y2:y0,stroke:"var(--faint)","stroke-width":1}));
+    svg.appendChild(ael("line",{x1:x0,y1:y0,x2:x0,y2:y1,stroke:"var(--faint)","stroke-width":1}));
+    var N=60, pts=[], seed=7;
+    function rnd(){seed=(seed*1103515245+12345)&0x7fffffff; return seed/0x7fffffff;}
+    for(i=0;i<N;i++){
+      var t=i/(N-1);
+      var base=1-Math.exp(-3.1*t);
+      var noise=(rnd()-0.5)*0.17*Math.exp(-1.6*t);
+      var v=Math.max(0,Math.min(1,base+noise));
+      var px=x0+(x1-x0)*t, py=y0+(y1-y0)*v;
+      pts.push(px.toFixed(1)+","+py.toFixed(1));
+    }
+    svg.appendChild(ael("polygon",{points:(x0+","+y0)+" "+pts.join(" ")+" "+(x1+","+y0),fill:"var(--accent-soft)",stroke:"none"}));
+    var line=ael("polyline",{points:pts.join(" "),fill:"none",stroke:"var(--accent)","stroke-width":2.2,"stroke-linejoin":"round","stroke-linecap":"round"});
+    svg.appendChild(line);
+    var last=pts[pts.length-1].split(",");
+    svg.appendChild(ael("circle",{cx:last[0],cy:last[1],r:4,fill:"var(--accent)"}));
+    svg.appendChild(ael("text",{x:x0,y:H-10,fill:"var(--faint)","font-size":11,"font-family":"var(--f-mono)"})).textContent="episodes";
+    var yl=ael("text",{x:14,y:(y0+y1)/2,fill:"var(--faint)","font-size":11,"font-family":"var(--f-mono)",transform:"rotate(-90 14 "+((y0+y1)/2)+")","text-anchor":"middle"}); yl.textContent="return"; svg.appendChild(yl);
+    if(matchMedia("(prefers-reduced-motion: no-preference)").matches){
+      try{var L=line.getTotalLength(); line.style.strokeDasharray=L; line.style.strokeDashoffset=L; line.getBoundingClientRect(); line.style.transition="stroke-dashoffset 1.8s ease-out"; requestAnimationFrame(function(){line.style.strokeDashoffset=0;});}catch(e){}
+    }
+  })();
+
+  /* work tabs */
+  var work=[
+    {title:"ETHRC Humanoid — Whole-Body Control", role:"Contributor · ETH Robotics Club", frame:"sim · mujoco / ros 2",
+     bullets:["Working hands-on in the humanoid whole-body control and teleoperation stack (ROS 2 / colcon, MuJoCo simulation).","Tracing the path from a VR teleoperation command through the controller to the robot — and keeping it stable through network delay."],
+     chips:["ROS 2","MuJoCo","C++ / Python","Teleoperation","Whole-body control"]},
+    {title:"Prosthetic Hand — Intuitive Control", role:"Intuitive-control (EMG) role · ETHRC HRI Team", frame:"emg · intent → grasp",
+     bullets:["Joining the Robotics Club's new Human–Robot Interaction team on a prosthetic-hand project.","Focus on intuitive control: reading user intent from EMG and mapping it to natural grasps."],
+     chips:["EMG","Signal processing","ML","Control","HRI"]},
+    {title:"Reinforcement Learning for Control", role:"In discussion · ETH Computational Robotics Lab", frame:"policy · reward / rollout",
+     bullets:["In conversation with the Computational Robotics Lab (Stelian Coros) about a part-time research-assistant role.","Interest: reinforcement learning and optimal control for robot motion."],
+     chips:["Reinforcement learning","Optimal control","Simulation","Research"]}
+  ];
+  var panel=document.getElementById("wp"), tabs=[].slice.call(document.querySelectorAll(".work-item"));
+  function render(i){
+    var w=work[i];
+    panel.innerHTML=
+      '<div class="frame"><span class="tagpair">'+w.frame+'</span></div>'+
+      '<h3>'+w.title+'</h3>'+
+      '<div class="role">'+w.role+'</div>'+
+      '<ul>'+w.bullets.map(function(b){return "<li>"+b+"</li>";}).join("")+'</ul>'+
+      '<div class="chips">'+w.chips.map(function(c){return '<span class="chip">'+c+'</span>';}).join("")+'</div>';
+  }
+  tabs.forEach(function(t){
+    t.addEventListener("click",function(){
+      tabs.forEach(function(x){x.setAttribute("aria-selected","false");});
+      t.setAttribute("aria-selected","true");
+      render(+t.getAttribute("data-i"));
+    });
+  });
+  render(0);
+
+  /* copy email */
+  var cb=document.getElementById("copyBtn"), email=document.getElementById("email").textContent;
+  cb.addEventListener("click",function(){
+    function ok(){cb.textContent="Copied ✓"; setTimeout(function(){cb.textContent="Copy";},1600);}
+    if(navigator.clipboard&&navigator.clipboard.writeText){
+      navigator.clipboard.writeText(email).then(ok).catch(select);
+    }else select();
+    function select(){var r=document.createRange(); r.selectNodeContents(document.getElementById("email")); var s=getSelection(); s.removeAllRanges(); s.addRange(r); cb.textContent="Press ⌘/Ctrl-C";}
+  });
+
+  /* active nav */
+  try{
+    var map={}; document.querySelectorAll(".nav-links a").forEach(function(a){map[a.getAttribute("href").slice(1)]=a;});
+    var io=new IntersectionObserver(function(es){es.forEach(function(e){var a=map[e.target.id]; if(a&&e.isIntersecting){Object.keys(map).forEach(function(k){map[k].removeAttribute("aria-current");}); a.setAttribute("aria-current","true");}});},{rootMargin:"-45% 0px -50% 0px"});
+    ["focus","work","projects","background","stack","contact"].forEach(function(id){var el=document.getElementById(id); if(el)io.observe(el);});
+  }catch(e){}
+
+  document.getElementById("yr").textContent=new Date().getFullYear();
+})();
+</script>
