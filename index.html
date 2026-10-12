@@ -166,6 +166,41 @@
     .btn-secondary { background: var(--surface); border: 1px solid var(--line); color: var(--ink); }
     .btn-secondary:hover { border-color: var(--ink); }
 
+    .hero-grid {
+      display: grid; grid-template-columns: minmax(0, 1.2fr) minmax(300px, 0.8fr);
+      align-items: center; gap: clamp(24px, 5vw, 52px);
+    }
+    .hero-visual {
+      display: flex; justify-content: center;
+    }
+    .portrait-card {
+      position: relative; width: min(100%, 440px); aspect-ratio: 4 / 5;
+      border-radius: 18px; overflow: hidden; border: 1px solid var(--line);
+      background: var(--surface-subtle); box-shadow: 0 24px 50px rgba(15, 23, 42, 0.10);
+    }
+    .portrait-card::before {
+      content: ""; position: absolute; inset: 0; z-index: 1;
+      background: linear-gradient(180deg, rgba(15, 23, 42, 0.04), rgba(15, 23, 42, 0.36));
+      pointer-events: none;
+    }
+    .portrait-card img {
+      display: block; width: 100%; height: 100%; object-fit: cover; object-position: center top;
+      filter: saturate(0.9) contrast(1.04) brightness(0.96);
+    }
+    .portrait-meta {
+      position: absolute; left: 16px; right: 16px; bottom: 16px; z-index: 2;
+      display: flex; align-items: center; justify-content: space-between; gap: 12px;
+      padding: 10px 14px; border-radius: 999px;
+      background: rgba(10, 15, 20, 0.34); border: 1px solid rgba(255,255,255,0.12);
+      backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px);
+      color: #EAF6FF; font-family: var(--font-mono); font-size: 0.7rem;
+      letter-spacing: 0.12em; text-transform: uppercase;
+    }
+    .portrait-pulse {
+      width: 8px; height: 8px; border-radius: 50%; background: #4ADE80;
+      box-shadow: 0 0 0 6px rgba(74, 222, 128, 0.18);
+    }
+
     /* Focus Grid */
     .focus-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
     .focus-card {
@@ -311,6 +346,8 @@
 
     /* Responsive */
     @media (max-width: 860px) {
+      .hero-grid { grid-template-columns: 1fr; }
+      .hero-visual { order: -1; }
       .focus-grid { grid-template-columns: 1fr; }
       .project-grid { grid-template-columns: 1fr; }
       .stack-grid { grid-template-columns: repeat(2, 1fr); }
@@ -318,6 +355,7 @@
     @media (max-width: 640px) {
       .nav-links { display: none; }
       .stack-grid { grid-template-columns: 1fr; }
+      .portrait-meta { letter-spacing: 0.08em; }
     }
   </style>
 </head>
@@ -357,37 +395,49 @@
          HERO SECTION (Clear Motivation for Robotics, RL & Control)
          ====================================================================== -->
     <section id="about" class="hero">
-      <div class="wrap">
-        <p class="eyebrow">ETH Zürich · Carnegie Mellon · EPFL</p>
-        <h1>Jonathan Fouquet</h1>
-        <p class="tagline">Reinforcement Learning, Optimal Control &amp; Legged Locomotion</p>
-        
-        <p class="lead">
-          I am an M.Sc. student in <strong>Robotics, Systems and Control at ETH Zürich</strong>, motivated by one central challenge: <strong>teaching legged and humanoid robots how to move with agility, balance, and whole-body coordination in the physical world</strong>.
-        </p>
+      <div class="wrap hero-grid">
+        <div class="hero-copy">
+          <p class="eyebrow">ETH Zürich · Carnegie Mellon · EPFL</p>
+          <h1>Jonathan Fouquet</h1>
+          <p class="tagline">Reinforcement Learning, Optimal Control &amp; Legged Locomotion</p>
+          
+          <p class="lead">
+            I am an M.Sc. student in <strong>Robotics, Systems and Control at ETH Zürich</strong>, motivated by one central challenge: <strong>teaching legged and humanoid robots how to move with agility, balance, and whole-body coordination in the physical world</strong>.
+          </p>
 
-        <p class="lead" style="margin-top:14px;">
-          My research focuses on the seam between <strong>reinforcement learning</strong> (PPO, reward design, sim-to-real transfer) and <strong>model-based optimal control</strong> (MPC, LQR, receding-horizon planning). I am convinced that robust physical autonomy emerges when we combine the adaptive power of learned policies with the mathematical stability guarantees of dynamic models.
-        </p>
+          <p class="lead" style="margin-top:14px;">
+            My research focuses on the seam between <strong>reinforcement learning</strong> (PPO, reward design, sim-to-real transfer) and <strong>model-based optimal control</strong> (MPC, LQR, receding-horizon planning). I am convinced that robust physical autonomy emerges when we combine the adaptive power of learned policies with the mathematical stability guarantees of dynamic models.
+          </p>
 
-        <p class="lead" style="margin-top:14px;">
-          At ETH Zürich, I conduct coursework advised within the <strong>Robotic Systems Lab (RSL / Prof. Marco Hutter)</strong> and lead control and teleoperation development for humanoid robotics at the <strong>ETH Robotics Club</strong>.
-        </p>
+          <p class="lead" style="margin-top:14px;">
+            At ETH Zürich, I conduct coursework advised within the <strong>Robotic Systems Lab (RSL / Prof. Marco Hutter)</strong> and lead control and teleoperation development for humanoid robotics at the <strong>ETH Robotics Club</strong>.
+          </p>
 
-        <div class="status-badge">
-          <span class="status-dot"></span>
-          <span>Open to a working-student role or robotics internship in Zürich · 20–40%</span>
+          <div class="status-badge">
+            <span class="status-dot"></span>
+            <span>Open to a working-student role or robotics internship in Zürich · 20–40%</span>
+          </div>
+
+          <div class="hero-actions">
+            <a href="#work" class="btn btn-primary">Explore My Work →</a>
+            <a href="#academics" class="btn btn-secondary">Academic Grades &amp; Transcripts ↓</a>
+            <a href="#contact" class="btn btn-secondary">Get in Touch</a>
+          </div>
+
+          <p class="faint mono" style="font-size:0.75rem; margin-top:24px;">
+            ◰ Zürich, Switzerland · French (Native) · English (C1) · German
+          </p>
         </div>
 
-        <div class="hero-actions">
-          <a href="#work" class="btn btn-primary">Explore My Work →</a>
-          <a href="#academics" class="btn btn-secondary">Academic Grades &amp; Transcripts ↓</a>
-          <a href="#contact" class="btn btn-secondary">Get in Touch</a>
+        <div class="hero-visual" aria-label="Portrait of Jonathan Fouquet">
+          <div class="portrait-card">
+            <img src="./5E016F7B-4807-494C-9DA5-D7A4EBD9738B.JPG" alt="Portrait of Jonathan Fouquet standing in a bright lab corridor">
+            <div class="portrait-meta">
+              <span class="portrait-pulse" aria-hidden="true"></span>
+              <span>Robotics @ ETH</span>
+            </div>
+          </div>
         </div>
-
-        <p class="faint mono" style="font-size:0.75rem; margin-top:24px;">
-          ◰ Zürich, Switzerland · French (Native) · English (C1) · German
-        </p>
       </div>
     </section>
 
@@ -564,14 +614,13 @@
          ====================================================================== -->
     <section id="academics">
       <div class="wrap">
-        <p class="sec-label">03 / Academic Transcripts</p>
-        <h2 class="sec-title">Academic track &amp; relevant grades.</h2>
+        <p class="sec-label">03 / Academic Background</p>
+        <h2 class="sec-title">Relevant training across robotics, control, and quantitative analysis.</h2>
         <p class="sec-desc">
-          Official academic records from ETH Zürich, Carnegie Mellon University, and EPFL highlighting quantitative foundations in mathematics, dynamics, and control theory.
+          I have built my foundation across ETH Zürich, Carnegie Mellon, and EPFL, with a focus on dynamics, optimization, control, and autonomy rather than broad general coursework.
         </p>
 
         <div class="academics-container">
-          <!-- ETH Zurich Card -->
           <div class="uni-card">
             <div class="uni-header">
               <div class="uni-title">
@@ -579,206 +628,111 @@
                 <p>M.Sc. Robotics, Systems and Control · RSL (Prof. Marco Hutter)</p>
               </div>
               <div class="uni-stats">
-                <span class="stat-pill highlight">Graduate Student (2026 → 2028)</span>
+                <span class="stat-pill highlight">2026 → 2028</span>
                 <span class="stat-pill">Zürich, Switzerland</span>
               </div>
             </div>
-            <p style="font-size:0.92rem; color:var(--muted); margin-bottom:14px;">
-              Graduate curriculum focused on robotic locomotion, autonomous navigation, and optimization:
-            </p>
             <table class="grades-table">
               <thead>
                 <tr>
-                  <th>Course Category</th>
-                  <th>Core Subject</th>
-                  <th style="text-align:right">Focus Area</th>
+                  <th>Core area</th>
+                  <th>Course focus</th>
+                  <th style="text-align:right">Relevance</th>
                 </tr>
               </thead>
               <tbody>
                 <tr>
-                  <td class="code">Core Dynamics</td>
+                  <td class="code">Dynamics</td>
                   <td class="course">Robot Dynamics</td>
-                  <td class="grade" style="color:var(--accent);">Kinematics &amp; Rigid-Body Dynamics</td>
+                  <td class="grade" style="color:var(--accent);">Rigid-body motion</td>
                 </tr>
                 <tr>
-                  <td class="code">Optimization</td>
-                  <td class="course">Model Predictive Control (MPC)</td>
-                  <td class="grade" style="color:var(--accent);">Constrained Receding-Horizon Control</td>
+                  <td class="code">Control</td>
+                  <td class="course">MPC &amp; Optimal Control</td>
+                  <td class="grade" style="color:var(--accent);">Receding horizon</td>
                 </tr>
                 <tr>
-                  <td class="code">Optimal Control</td>
-                  <td class="course">Dynamic Programming &amp; Optimal Control (DPOC)</td>
-                  <td class="grade" style="color:var(--accent);">Bellman Equation &amp; Value Iteration</td>
-                </tr>
-                <tr>
-                  <td class="code">Machine Learning</td>
-                  <td class="course">Probabilistic Artificial Intelligence (PAI)</td>
-                  <td class="grade" style="color:var(--accent);">Bayesian ML, Gaussian Processes &amp; RL</td>
-                </tr>
-                <tr>
-                  <td class="code">Perception</td>
-                  <td class="course">Image Analysis &amp; Computer Vision (IACV)</td>
-                  <td class="grade" style="color:var(--accent);">Visual Odometry &amp; Spatial Geometry</td>
+                  <td class="code">AI / Estimation</td>
+                  <td class="course">Probabilistic AI</td>
+                  <td class="grade" style="color:var(--accent);">Bayesian learning</td>
                 </tr>
               </tbody>
             </table>
           </div>
 
-          <!-- Carnegie Mellon University Card -->
           <div class="uni-card">
             <div class="uni-header">
               <div class="uni-title">
-                <h3>Carnegie Mellon University (CMU)</h3>
-                <p>Exchange Year · Mechanical Engineering &amp; Robotics (CIT)</p>
+                <h3>Carnegie Mellon University</h3>
+                <p>Exchange Year · Mechanical Engineering &amp; Robotics</p>
               </div>
               <div class="uni-stats">
-                <span class="stat-pill highlight">Cumulative GPA: 4.00 / 4.00</span>
-                <span class="stat-pill highlight">Dean's List (Both Semesters)</span>
-                <span class="stat-pill">Pittsburgh, USA</span>
+                <span class="stat-pill highlight">GPA: 4.00 / 4.00</span>
+                <span class="stat-pill highlight">Dean's List</span>
               </div>
             </div>
             <table class="grades-table">
               <thead>
                 <tr>
-                  <th>Course Code</th>
-                  <th>Course Title</th>
-                  <th style="text-align:right">Final Grade</th>
+                  <th>Course</th>
+                  <th>Area</th>
+                  <th style="text-align:right">Grade</th>
                 </tr>
               </thead>
               <tbody>
                 <tr>
-                  <td class="code">ROB 16281</td>
                   <td class="course">General Robotics</td>
-                  <td class="grade grade-top">A (4.0 / 4.0)</td>
+                  <td class="code">Autonomy</td>
+                  <td class="grade grade-top">A</td>
                 </tr>
                 <tr>
-                  <td class="code">MEG 24451</td>
                   <td class="course">Feedback Control Systems</td>
-                  <td class="grade grade-top">A (4.0 / 4.0)</td>
+                  <td class="code">Control</td>
+                  <td class="grade grade-top">A</td>
                 </tr>
                 <tr>
-                  <td class="code">STA 36410</td>
-                  <td class="course">Intro to Probability Modeling</td>
-                  <td class="grade grade-top">A (4.0 / 4.0)</td>
-                </tr>
-                <tr>
-                  <td class="code">ECE 18220</td>
-                  <td class="course">Electronic Devices &amp; Analysis</td>
-                  <td class="grade grade-top">A (4.0 / 4.0)</td>
-                </tr>
-                <tr>
-                  <td class="code">CEE 12755</td>
-                  <td class="course">Finite Element Mechanics I</td>
-                  <td class="grade grade-top">A (4.0 / 4.0)</td>
-                </tr>
-                <tr>
-                  <td class="code">MEG 24751</td>
-                  <td class="course">Solid Mechanics</td>
-                  <td class="grade grade-top">A (4.0 / 4.0)</td>
-                </tr>
-                <tr>
-                  <td class="code">MEG 24452</td>
-                  <td class="course">Mechanical Systems Experimentation</td>
-                  <td class="grade grade-top">A (4.0 / 4.0)</td>
-                </tr>
-                <tr>
-                  <td class="code">MEG 24322</td>
-                  <td class="course">Heat Transfer</td>
-                  <td class="grade grade-top">A (4.0 / 4.0)</td>
+                  <td class="course">Probability Modeling</td>
+                  <td class="code">Statistics</td>
+                  <td class="grade grade-top">A</td>
                 </tr>
               </tbody>
             </table>
           </div>
 
-          <!-- EPFL Card -->
           <div class="uni-card">
             <div class="uni-header">
               <div class="uni-title">
-                <h3>École Polytechnique Fédérale de Lausanne (EPFL)</h3>
-                <p>B.Sc. Mechanical Engineering (2023 – 2026)</p>
+                <h3>EPFL</h3>
+                <p>B.Sc. Mechanical Engineering</p>
               </div>
               <div class="uni-stats">
-                <span class="stat-pill highlight">Overall Average: 5.36 / 6.00</span>
-                <span class="stat-pill highlight">Severin B. Hacker Fellowship (2025)</span>
-                <span class="stat-pill">Lausanne, Switzerland</span>
+                <span class="stat-pill highlight">5.36 / 6.00</span>
+                <span class="stat-pill">Severin B. Hacker Fellowship</span>
               </div>
             </div>
-            <p style="font-size:0.8rem; color:var(--muted); margin-bottom:12px;">
-              *Swiss grading scale: 6.0 is the maximum possible grade; 4.0 is the passing grade.
-            </p>
             <table class="grades-table">
               <thead>
                 <tr>
-                  <th>Course Code</th>
-                  <th>Key Quantitative Course</th>
-                  <th style="text-align:right">Grade (out of 6.0)</th>
+                  <th>Course</th>
+                  <th>Type</th>
+                  <th style="text-align:right">Grade</th>
                 </tr>
               </thead>
               <tbody>
                 <tr>
-                  <td class="code">MATH-251</td>
-                  <td class="course">Numerical Analysis (Analyse numérique)</td>
-                  <td class="grade grade-top">6.00 / 6.0 (Max)</td>
+                  <td class="course">Numerical Analysis</td>
+                  <td class="code">Math</td>
+                  <td class="grade grade-top">6.0</td>
                 </tr>
                 <tr>
-                  <td class="code">HUM-123</td>
-                  <td class="course">Global Issues: Energy</td>
-                  <td class="grade grade-top">6.00 / 6.0 (Max)</td>
-                </tr>
-                <tr>
-                  <td class="code">ME-221</td>
                   <td class="course">Dynamical Systems</td>
-                  <td class="grade grade-high">5.75 / 6.0</td>
+                  <td class="code">Dynamics</td>
+                  <td class="grade grade-high">5.75</td>
                 </tr>
                 <tr>
-                  <td class="code">MATH-111</td>
-                  <td class="course">Linear Algebra (Algèbre linéaire)</td>
-                  <td class="grade grade-high">5.75 / 6.0</td>
-                </tr>
-                <tr>
-                  <td class="code">MATH-101</td>
-                  <td class="course">Analysis I (Analyse I)</td>
-                  <td class="grade grade-high">5.75 / 6.0</td>
-                </tr>
-                <tr>
-                  <td class="code">MATH-106</td>
-                  <td class="course">Analysis II (Analyse II)</td>
-                  <td class="grade grade-high">5.75 / 6.0</td>
-                </tr>
-                <tr>
-                  <td class="code">ME-232</td>
-                  <td class="course">Mechanics of Structures</td>
-                  <td class="grade grade-high">5.75 / 6.0</td>
-                </tr>
-                <tr>
-                  <td class="code">MATH-234</td>
-                  <td class="course">Probability and Statistics</td>
-                  <td class="grade grade-high">5.75 / 6.0</td>
-                </tr>
-                <tr>
-                  <td class="code">ME-213</td>
-                  <td class="course">Programming for Engineers (C / Python)</td>
-                  <td class="grade grade-high">5.75 / 6.0</td>
-                </tr>
-                <tr>
-                  <td class="code">EE-106</td>
-                  <td class="course">Electrical Engineering Science &amp; Technology</td>
-                  <td class="grade grade-high">5.75 / 6.0</td>
-                </tr>
-                <tr>
-                  <td class="code">MATH-202</td>
-                  <td class="course">Analysis III (Multivariable Calculus)</td>
-                  <td class="grade grade-high">5.50 / 6.0</td>
-                </tr>
-                <tr>
-                  <td class="code">MATH-207</td>
-                  <td class="course">Analysis IV (Vector Calculus &amp; PDEs)</td>
-                  <td class="grade grade-high">5.50 / 6.0</td>
-                </tr>
-                <tr>
-                  <td class="code">CS-119</td>
-                  <td class="course">Information, Computation, Communication</td>
-                  <td class="grade grade-high">5.50 / 6.0</td>
+                  <td class="course">Linear Algebra</td>
+                  <td class="code">Math</td>
+                  <td class="grade grade-high">5.75</td>
                 </tr>
               </tbody>
             </table>
@@ -905,7 +859,7 @@
           </p>
 
           <div class="contact-email">
-            <code id="mailCode">jon.fouquet@gmail.com</code>
+            <code id="mailCode">jfouquet@ethz.ch</code>
             <button id="copyBtn" class="copy-btn">Copy Email</button>
           </div>
 
