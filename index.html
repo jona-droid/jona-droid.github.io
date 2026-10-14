@@ -185,8 +185,8 @@
       pointer-events: none;
     }
     .portrait-card img {
-      display: block; width: 100%; height: 100%; object-fit: cover; object-position: center top;
-      filter: saturate(0.9) contrast(1.04) brightness(0.96);
+      display: block; width: 100%; height: 100%; object-fit: cover; object-position: center center;
+      filter: saturate(0.95) contrast(1.03);
     }
     .portrait-meta {
       position: absolute; left: 16px; right: 16px; bottom: 16px; z-index: 2;
@@ -200,6 +200,15 @@
     .portrait-pulse {
       width: 8px; height: 8px; border-radius: 50%; background: #4ADE80;
       box-shadow: 0 0 0 6px rgba(74, 222, 128, 0.18);
+    }
+
+    .timeline-photo {
+      float: right; width: 168px; aspect-ratio: 3 / 4; object-fit: cover; object-position: center top;
+      border-radius: 12px; margin: 2px 0 14px 22px; border: 1px solid var(--line);
+      box-shadow: 0 10px 26px rgba(15, 23, 42, 0.12);
+    }
+    @media (max-width: 640px) {
+      .timeline-photo { float: none; display: block; width: 100%; max-width: 240px; margin: 0 auto 16px; aspect-ratio: 4 / 3; }
     }
 
     /* Focus Grid */
@@ -460,9 +469,9 @@
         <div class="hero-visual" aria-label="Portrait of Jonathan Fouquet">
           <div class="portrait-card">
             <img
-              src="./5E016F7B-4807-494C-9DA5-D7A4EBD9738B.JPG"
-              alt="Portrait of Jonathan Fouquet standing in a bright lab corridor"
-              onerror="this.onerror=null;this.src='https://jonathanfouquet.dev/5E016F7B-4807-494C-9DA5-D7A4EBD9738B.JPG';"
+              src="media/portrait-intro.jpg"
+              alt="Jonathan Fouquet at Niagara Falls wearing a Carnegie Mellon University sweatshirt"
+              onerror="this.onerror=null;this.src='https://jonathanfouquet.dev/media/portrait-intro.jpg';"
             >
 
           </div>
@@ -776,6 +785,9 @@
 
         <div class="timeline">
           <div class="timeline-item">
+            <img class="timeline-photo" src="media/bosch.jpg" loading="lazy"
+              alt="Jonathan Fouquet at Bosch Manufacturing Solutions in Stuttgart"
+              onerror="this.onerror=null;this.src='https://jonathanfouquet.dev/media/bosch.jpg';">
             <div class="timeline-head">
               <h4>Bosch — Special Machinery Construction</h4>
               <span class="timeline-date">May – Sep 2026 · Stuttgart, Germany</span>
