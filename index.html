@@ -381,10 +381,14 @@
       .stack-grid { grid-template-columns: 1fr; }
       .portrait-meta { letter-spacing: 0.08em; }
     }
-    /* Scroll reveal (Apple-style fade/rise) */
+    /* Scroll reveal — dramatic fade + directional slide + blur */
     @media (prefers-reduced-motion: no-preference) {
-      .reveal { opacity: 0; transform: translateY(26px); transition: opacity 0.75s cubic-bezier(0.16,1,0.3,1), transform 0.75s cubic-bezier(0.16,1,0.3,1); }
-      .reveal.in { opacity: 1; transform: none; }
+      .reveal { opacity: 0; filter: blur(14px); transition: opacity 0.9s cubic-bezier(0.22,1,0.36,1), transform 1.05s cubic-bezier(0.22,1,0.36,1), filter 0.9s ease; will-change: opacity, transform, filter; }
+      .reveal.up    { transform: translateY(72px) scale(0.94); }
+      .reveal.left  { transform: translateX(-90px) scale(0.96); }
+      .reveal.right { transform: translateX(90px) scale(0.96); }
+      .reveal.in    { opacity: 1; transform: none; filter: blur(0); }
+      #scrollbar { position: fixed; top: 0; left: 0; height: 3px; width: 0%; z-index: 2000; background: var(--accent); box-shadow: 0 0 12px var(--accent); }
     }
   </style>
 </head>
@@ -942,31 +946,57 @@
 
     document.getElementById('year').innerText = new Date().getFullYear();
 
-    // Scroll reveal: fade + rise elements as they enter the viewport
+    // Scroll reveal: bold fade + directional slide + blur, plus scroll-progress bar
     (function () {
       if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
-      var sel = '.hero-copy > *, .portrait-card, .sec-label, .sec-title, .sec-desc, '
-              + '.focus-card, .demo-featured, .project-card, .uni-card, '
-              + '.timeline-item, .stack-card';
-      var els = Array.prototype.slice.call(document.querySelectorAll(sel));
-      if (!('IntersectionObserver' in window) || !els.length) return;
-      els.forEach(function (el) { el.classList.add('reveal'); });
-      // Stagger elements that share a parent (grids, lists)
+      if (!('IntersectionObserver' in window)) return;
+
+      // Scroll progress bar
+      var bar = document.createElement('div'); bar.id = 'scrollbar';
+      document.body.appendChild(bar);
+      var ticking = false;
+      function updateBar() {
+        var h = document.documentElement;
+        var max = h.scrollHeight - h.clientHeight;
+        bar.style.width = (max > 0 ? (h.scrollTop / max) * 100 : 0) + '%';
+        ticking = false;
+      }
+      window.addEventListener('scroll', function () {
+        if (!ticking) { ticking = true; requestAnimationFrame(updateBar); }
+      }, { passive: true });
+      updateBar();
+
+      // Directional reveals
+      var up = Array.prototype.slice.call(document.querySelectorAll(
+        '.hero-copy > *, .portrait-card, .sec-label, .sec-title, .sec-desc, .demo-featured'));
+      var alt = Array.prototype.slice.call(document.querySelectorAll(
+        '.focus-card, .project-card, .uni-card, .stack-card'));
+      var tl = Array.prototype.slice.call(document.querySelectorAll('.timeline-item'));
+
+      up.forEach(function (el) { el.classList.add('reveal', 'up'); });
+      tl.forEach(function (el) { el.classList.add('reveal', 'left'); });
+      alt.forEach(function (el, i) { el.classList.add('reveal', (i % 2) ? 'right' : 'left'); });
+
+      var all = up.concat(alt, tl);
+      if (!all.length) return;
+
+      // Stagger siblings sharing a parent (grids, lists)
       var byParent = new Map();
-      els.forEach(function (el) {
-        var p = el.parentElement;
-        var arr = byParent.get(p) || [];
-        arr.push(el); byParent.set(p, arr);
+      all.forEach(function (el) {
+        var par = el.parentElement;
+        var arr = byParent.get(par) || [];
+        arr.push(el); byParent.set(par, arr);
       });
       byParent.forEach(function (arr) {
-        arr.forEach(function (el, i) { el.style.transitionDelay = Math.min(i * 70, 350) + 'ms'; });
+        arr.forEach(function (el, i) { el.style.transitionDelay = Math.min(i * 120, 520) + 'ms'; });
       });
+
       var io = new IntersectionObserver(function (entries) {
         entries.forEach(function (e) {
           if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); }
         });
-      }, { threshold: 0.1, rootMargin: '0px 0px -8% 0px' });
-      els.forEach(function (el) { io.observe(el); });
+      }, { threshold: 0.12, rootMargin: '0px 0px -10% 0px' });
+      all.forEach(function (el) { io.observe(el); });
     })();
   </script>
 </body>
