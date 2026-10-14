@@ -11,6 +11,35 @@
   <meta property="og:description" content="ETH Zürich robotics master's student working on reinforcement learning, optimal control, and legged/humanoid robots. CMU & EPFL Alum.">
   <meta property="og:url" content="https://jonathanfouquet.dev/">
   <meta property="og:type" content="website">
+  <meta property="og:site_name" content="Jonathan Fouquet">
+  <meta property="og:image" content="https://jonathanfouquet.dev/media/jonathan-fouquet-portrait.jpg">
+  <meta property="og:image:alt" content="Jonathan Fouquet, ETH Zuerich robotics MSc student">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Jonathan Fouquet">
+  <meta name="twitter:description" content="ETH Zuerich robotics master's student working on reinforcement learning and optimal control for legged and humanoid robots.">
+  <meta name="twitter:image" content="https://jonathanfouquet.dev/media/jonathan-fouquet-portrait.jpg">
+  <link rel="canonical" href="https://jonathanfouquet.dev/">
+  <meta name="author" content="Jonathan Fouquet">
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Person",
+    "name": "Jonathan Fouquet",
+    "url": "https://jonathanfouquet.dev/",
+    "image": "https://jonathanfouquet.dev/media/jonathan-fouquet-portrait.jpg",
+    "jobTitle": "MSc Student in Robotics, Systems and Control",
+    "alumniOf": [
+      { "@type": "CollegeOrUniversity", "name": "ETH Zurich" },
+      { "@type": "CollegeOrUniversity", "name": "Carnegie Mellon University" },
+      { "@type": "CollegeOrUniversity", "name": "EPFL" }
+    ],
+    "knowsAbout": ["Reinforcement Learning", "Optimal Control", "Robotics", "Legged Locomotion", "Model Predictive Control"],
+    "sameAs": [
+      "https://www.linkedin.com/in/jonathan-fouquet/",
+      "https://github.com/jona-droid"
+    ]
+  }
+  </script>
 
   <!-- Google Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -176,17 +205,18 @@
     }
     .portrait-card {
       position: relative; width: min(100%, 440px); aspect-ratio: 4 / 5;
-      border-radius: 18px; overflow: hidden; border: 1px solid var(--line);
-      background: var(--surface-subtle); box-shadow: 0 24px 50px rgba(15, 23, 42, 0.10);
+      border-radius: 22px; overflow: hidden; padding: 10px;
+      border: 1px solid var(--line); background: var(--surface);
+      box-shadow: 0 26px 55px rgba(15, 23, 42, 0.14);
     }
     .portrait-card::before {
-      content: ""; position: absolute; inset: 0; z-index: 1;
-      background: linear-gradient(180deg, rgba(15, 23, 42, 0.04), rgba(15, 23, 42, 0.36));
+      content: ""; position: absolute; inset: 10px; z-index: 2; border-radius: 13px;
+      box-shadow: inset 0 0 0 1px rgba(15, 23, 42, 0.07);
       pointer-events: none;
     }
     .portrait-card img {
       display: block; width: 100%; height: 100%; object-fit: cover; object-position: center center;
-      filter: saturate(0.95) contrast(1.03);
+      border-radius: 13px; filter: saturate(0.98) contrast(1.02);
     }
     .portrait-meta {
       position: absolute; left: 16px; right: 16px; bottom: 16px; z-index: 2;
@@ -203,9 +233,10 @@
     }
 
     .timeline-photo {
-      float: right; width: 168px; aspect-ratio: 3 / 4; object-fit: cover; object-position: center top;
-      border-radius: 12px; margin: 2px 0 14px 22px; border: 1px solid var(--line);
-      box-shadow: 0 10px 26px rgba(15, 23, 42, 0.12);
+      float: right; width: 178px; aspect-ratio: 3 / 4; object-fit: cover; object-position: center top;
+      border-radius: 14px; padding: 6px; background: var(--surface);
+      margin: 2px 0 16px 24px; border: 1px solid var(--line);
+      box-shadow: 0 12px 28px rgba(15, 23, 42, 0.14);
     }
     @media (max-width: 640px) {
       .timeline-photo { float: none; display: block; width: 100%; max-width: 240px; margin: 0 auto 16px; aspect-ratio: 4 / 3; }
@@ -469,9 +500,9 @@
         <div class="hero-visual" aria-label="Portrait of Jonathan Fouquet">
           <div class="portrait-card">
             <img
-              src="media/portrait-intro.jpg"
+              src="media/jonathan-fouquet-portrait.jpg"
               alt="Jonathan Fouquet at Niagara Falls wearing a Carnegie Mellon University sweatshirt"
-              onerror="this.onerror=null;this.src='https://jonathanfouquet.dev/media/portrait-intro.jpg';"
+              onerror="this.onerror=null;this.src='https://jonathanfouquet.dev/media/jonathan-fouquet-portrait.jpg';"
             >
 
           </div>
