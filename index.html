@@ -226,6 +226,8 @@
       transition: transform 0.15s, border-color 0.15s;
     }
     .project-card:hover { border-color: var(--accent); }
+    .card-video { margin: 2px 0 16px; border-radius: 8px; overflow: hidden; background: #000; line-height: 0; border: 1px solid var(--line); }
+    .card-video video { width: 100%; display: block; aspect-ratio: 16 / 9; object-fit: cover; background: #000; }
     .project-meta {
       display: flex; justify-content: space-between; align-items: center;
       font-family: var(--font-mono); font-size: 0.72rem; color: var(--muted); margin-bottom: 10px;
@@ -588,6 +590,12 @@
             </div>
             <h3>Autonomous Mobile Robots Stack</h3>
             <p class="project-role">Autonomy &amp; Control Projects · General Robotics (ROB 16281)</p>
+            <div class="card-video">
+              <video controls preload="none" playsinline poster="media/cmu-montage-poster.jpg">
+                <source src="media/cmu-montage.mp4" type="video/mp4">
+                Your browser does not support the video tag.
+              </video>
+            </div>
             <p>
               Engineered autonomous ground platforms covering state estimation, path planning, and trajectory tracking.
             </p>
