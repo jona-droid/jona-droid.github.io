@@ -18,6 +18,9 @@
   <meta name="twitter:title" content="Jonathan Fouquet">
   <meta name="twitter:description" content="ETH Zuerich robotics master's student working on reinforcement learning and optimal control for legged and humanoid robots.">
   <meta name="twitter:image" content="https://jonathanfouquet.dev/media/jonathan-fouquet-portrait.jpg">
+  <meta name="robots" content="index, follow, max-image-preview:large">
+  <meta property="og:image:width" content="880">
+  <meta property="og:image:height" content="1100">
   <link rel="canonical" href="https://jonathanfouquet.dev/">
   <meta name="author" content="Jonathan Fouquet">
   <script type="application/ld+json">
@@ -25,9 +28,32 @@
     "@context": "https://schema.org",
     "@type": "Person",
     "name": "Jonathan Fouquet",
+    "givenName": "Jonathan",
+    "familyName": "Fouquet",
     "url": "https://jonathanfouquet.dev/",
-    "image": "https://jonathanfouquet.dev/media/jonathan-fouquet-portrait.jpg",
+    "image": [
+      {
+        "@type": "ImageObject",
+        "contentUrl": "https://jonathanfouquet.dev/media/jonathan-fouquet-portrait.jpg",
+        "url": "https://jonathanfouquet.dev/media/jonathan-fouquet-portrait.jpg",
+        "name": "Jonathan Fouquet",
+        "caption": "Jonathan Fouquet — MSc Student in Robotics, Systems and Control at ETH Zurich",
+        "description": "Portrait of Jonathan Fouquet"
+      },
+      {
+        "@type": "ImageObject",
+        "contentUrl": "https://jonathanfouquet.dev/media/jonathan-fouquet-bosch.jpg",
+        "url": "https://jonathanfouquet.dev/media/jonathan-fouquet-bosch.jpg",
+        "name": "Jonathan Fouquet at Bosch",
+        "caption": "Jonathan Fouquet at Bosch Manufacturing Solutions in Stuttgart",
+        "description": "Jonathan Fouquet working at Bosch Special Machinery Construction"
+      }
+    ],
     "jobTitle": "MSc Student in Robotics, Systems and Control",
+    "worksFor": {
+      "@type": "Organization",
+      "name": "ETH Zurich"
+    },
     "alumniOf": [
       { "@type": "CollegeOrUniversity", "name": "ETH Zurich" },
       { "@type": "CollegeOrUniversity", "name": "Carnegie Mellon University" },
@@ -494,7 +520,12 @@
           <div class="portrait-card">
             <img
               src="media/jonathan-fouquet-portrait.jpg"
-              alt="Jonathan Fouquet at Niagara Falls wearing a Carnegie Mellon University sweatshirt"
+              alt="Jonathan Fouquet — MSc Student in Robotics, Systems and Control at ETH Zurich"
+              title="Jonathan Fouquet"
+              width="880"
+              height="1100"
+              fetchpriority="high"
+              decoding="async"
               onerror="this.onerror=null;this.src='https://jonathanfouquet.dev/media/jonathan-fouquet-portrait.jpg';"
             >
 
@@ -811,6 +842,10 @@
           <div class="timeline-item">
             <img class="timeline-photo" src="media/jonathan-fouquet-bosch.jpg" loading="lazy"
               alt="Jonathan Fouquet at Bosch Manufacturing Solutions in Stuttgart"
+              title="Jonathan Fouquet at Bosch"
+              width="560"
+              height="747"
+              decoding="async"
               onerror="this.onerror=null;this.src='https://jonathanfouquet.dev/media/jonathan-fouquet-bosch.jpg';">
             <div class="timeline-head">
               <h4>Bosch — Special Machinery Construction</h4>
