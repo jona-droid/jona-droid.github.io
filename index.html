@@ -345,6 +345,26 @@
     footer { padding-block: 30px; font-family: var(--font-mono); font-size: 0.76rem; color: var(--muted); }
     .footer-inner { display: flex; justify-content: space-between; align-items: center; flex-wrap: gap; }
 
+    /* Featured video demo (expandable: duplicate .demo-featured for more) */
+    .demo-featured {
+      background: var(--surface); border: 1px solid var(--line);
+      border-radius: 12px; overflow: hidden; margin-bottom: 26px;
+    }
+    .demo-video { background: #000; line-height: 0; }
+    .demo-video video {
+      width: 100%; display: block; aspect-ratio: 16 / 9;
+      object-fit: contain; background: #000;
+    }
+    .demo-body { padding: clamp(22px, 3.5vw, 32px); }
+    .demo-badge {
+      display: inline-flex; align-items: center; gap: 7px;
+      font-family: var(--font-mono); font-size: 0.7rem; letter-spacing: 0.1em;
+      text-transform: uppercase; color: var(--accent); background: var(--accent-soft);
+      border: 1px solid var(--line); padding: 4px 11px; border-radius: 999px; margin-bottom: 14px;
+    }
+    .demo-body h3 { font-size: 1.3rem; font-weight: 600; color: var(--ink); margin: 4px 0 8px; }
+    .demo-body p { font-size: 0.95rem; color: var(--muted); line-height: 1.65; margin-bottom: 16px; }
+
     /* Responsive */
     @media (max-width: 860px) {
       .hero-grid { grid-template-columns: 1fr; }
@@ -507,6 +527,34 @@
           Hands-on systems spanning humanoid whole-body control, biomechatronic intent decoding, and classical feedback control loops.
         </p>
 
+        <!-- Featured video demo — add more .demo-featured blocks here over time -->
+        <div class="demo-featured">
+          <div class="demo-video">
+            <video controls preload="none" playsinline poster="media/robot-apprentice-poster.jpg">
+              <source src="media/robot-apprentice.mp4" type="video/mp4">
+              Your browser does not support the video tag.
+            </video>
+          </div>
+          <div class="demo-body">
+            <span class="demo-badge">● Hackathon · 24 h build</span>
+            <div class="project-meta">
+              <span>HackNation</span>
+              <span>2026</span>
+            </div>
+            <h3>Robot Apprentice — learn from the expert, teach the novice</h3>
+            <p class="project-role">AI flight-inspection copilot · Learning from demonstration + Guardian MPC</p>
+            <p>
+              An AI “apprentice” that learns inspection-flight rules by watching an expert, explains each rule back to confirm it understood, then coaches a novice using the expert’s own words. A <strong>Guardian MPC</strong> predicts about two seconds ahead and brakes to keep the aircraft inside the expert’s safety envelope. Built end-to-end in a 24-hour hackathon.
+            </p>
+            <div class="pill-list">
+              <span class="pill">MPC</span>
+              <span class="pill">Learning from Demonstration</span>
+              <span class="pill">LLM Coaching</span>
+              <span class="pill">Real-time Simulation</span>
+            </div>
+          </div>
+        </div>
+
         <div class="project-grid">
           <!-- Project 1 -->
           <div class="project-card">
@@ -626,34 +674,25 @@
                 <p>M.Sc. Robotics, Systems and Control · RSL (Prof. Marco Hutter)</p>
               </div>
               <div class="uni-stats">
-                <span class="stat-pill highlight">2026 → 2028</span>
+                <span class="stat-pill highlight">Currently enrolled · HS 2026</span>
                 <span class="stat-pill">Zürich, Switzerland</span>
               </div>
             </div>
             <table class="grades-table">
               <thead>
                 <tr>
-                  <th>Core area</th>
-                  <th>Course focus</th>
-                  <th style="text-align:right">Relevance</th>
+                  <th>Current course · Autumn 2026</th>
+                  <th>Area</th>
+                  <th style="text-align:right">ECTS</th>
                 </tr>
               </thead>
               <tbody>
-                <tr>
-                  <td class="code">Dynamics</td>
-                  <td class="course">Robot Dynamics</td>
-                  <td class="grade" style="color:var(--accent);">Rigid-body motion</td>
-                </tr>
-                <tr>
-                  <td class="code">Control</td>
-                  <td class="course">MPC &amp; Optimal Control</td>
-                  <td class="grade" style="color:var(--accent);">Receding horizon</td>
-                </tr>
-                <tr>
-                  <td class="code">AI / Estimation</td>
-                  <td class="course">Probabilistic AI</td>
-                  <td class="grade" style="color:var(--accent);">Bayesian learning</td>
-                </tr>
+                <tr><td class="course">Robot Dynamics</td><td class="code">Dynamics</td><td class="grade" style="color:var(--accent);">4</td></tr>
+                <tr><td class="course">Model Predictive Control</td><td class="code">Control</td><td class="grade" style="color:var(--accent);">4</td></tr>
+                <tr><td class="course">Dynamic Programming &amp; Optimal Control</td><td class="code">Control</td><td class="grade" style="color:var(--accent);">4</td></tr>
+                <tr><td class="course">Probabilistic Artificial Intelligence</td><td class="code">AI / ML</td><td class="grade" style="color:var(--accent);">8</td></tr>
+                <tr><td class="course">Planning &amp; Decision Making for Robots</td><td class="code">Autonomy</td><td class="grade" style="color:var(--accent);">4</td></tr>
+                <tr><td class="course">Image Analysis &amp; Computer Vision</td><td class="code">Perception</td><td class="grade" style="color:var(--accent);">6</td></tr>
               </tbody>
             </table>
           </div>
@@ -717,21 +756,12 @@
                 </tr>
               </thead>
               <tbody>
-                <tr>
-                  <td class="course">Numerical Analysis</td>
-                  <td class="code">Math</td>
-                  <td class="grade grade-top">6.0</td>
-                </tr>
-                <tr>
-                  <td class="course">Dynamical Systems</td>
-                  <td class="code">Dynamics</td>
-                  <td class="grade grade-high">5.75</td>
-                </tr>
-                <tr>
-                  <td class="course">Linear Algebra</td>
-                  <td class="code">Math</td>
-                  <td class="grade grade-high">5.75</td>
-                </tr>
+                <tr><td class="course">Numerical Analysis</td><td class="code">Mathematics</td><td class="grade grade-top">6.00</td></tr>
+                <tr><td class="course">Dynamical Systems</td><td class="code">Dynamics</td><td class="grade grade-high">5.75</td></tr>
+                <tr><td class="course">Probability &amp; Statistics</td><td class="code">Statistics</td><td class="grade grade-high">5.75</td></tr>
+                <tr><td class="course">Linear Algebra</td><td class="code">Mathematics</td><td class="grade grade-high">5.75</td></tr>
+                <tr><td class="course">Programming for Engineers</td><td class="code">Programming</td><td class="grade grade-high">5.75</td></tr>
+                <tr><td class="course">Information, Computation &amp; Comm.</td><td class="code">Computer Science</td><td class="grade grade-high">5.50</td></tr>
               </tbody>
             </table>
           </div>
