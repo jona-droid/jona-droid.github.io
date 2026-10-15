@@ -253,12 +253,12 @@
     }
 
     .timeline-photo {
-      float: right; width: 178px; aspect-ratio: 3 / 4; object-fit: cover; object-position: center top;
+      float: right; width: 178px; height: auto; aspect-ratio: 3 / 4; object-fit: cover; object-position: center top;
       border-radius: 8px; margin: 2px 0 16px 24px; border: 1px solid var(--line);
       box-shadow: 0 10px 24px rgba(15, 23, 42, 0.12);
     }
     @media (max-width: 640px) {
-      .timeline-photo { float: none; display: block; width: 100%; max-width: 240px; margin: 0 auto 16px; aspect-ratio: 4 / 3; }
+      .timeline-photo { float: none; display: block; width: 100%; max-width: 230px; margin: 0 auto 16px; aspect-ratio: 3 / 4; }
     }
 
     /* Focus Grid */
@@ -843,8 +843,8 @@
             <img class="timeline-photo" src="media/jonathan-fouquet-bosch.jpg" loading="lazy"
               alt="Jonathan Fouquet at Bosch Manufacturing Solutions in Stuttgart"
               title="Jonathan Fouquet at Bosch"
-              width="560"
-              height="747"
+              width="640"
+              height="853"
               decoding="async"
               onerror="this.onerror=null;this.src='https://jonathanfouquet.dev/media/jonathan-fouquet-bosch.jpg';">
             <div class="timeline-head">
