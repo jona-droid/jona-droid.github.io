@@ -502,7 +502,7 @@
           </p>
 
           <p class="lead" style="margin-top:14px;">
-            At ETH Zürich, I conduct coursework advised within the <strong>Robotic Systems Lab (RSL / Prof. Marco Hutter)</strong> and lead control and teleoperation development for humanoid robotics at the <strong>ETH Robotics Club</strong>.
+            At ETH Zürich, I conduct coursework advised within the <strong>Robotic Systems Lab (RSL / Prof. Marco Hutter)</strong> and build the evaluation suite for learned humanoid walking policies on the software team of the <strong>ETH Robotics Club</strong>.
           </p>
 
           <div class="hero-actions">
@@ -599,7 +599,7 @@
         <p class="sec-label">02 / Selected Projects</p>
         <h2 class="sec-title">Current work &amp; robotic implementations.</h2>
         <p class="sec-desc">
-          Hands-on systems spanning humanoid whole-body control, VR teleoperation, and classical feedback control loops.
+          Hands-on systems spanning humanoid policy evaluation, learning-based control, and classical feedback control loops.
         </p>
 
         <!-- Featured video demo — add more .demo-featured blocks here over time -->
@@ -637,21 +637,20 @@
               <span>ETH Robotics Club</span>
               <span>2026 → Present</span>
             </div>
-            <h3>ETHRC Humanoid — Whole-Body Control</h3>
-            <p class="project-role">Core Contributor · ROS 2 / MuJoCo / C++</p>
+            <h3>ETHRC Humanoid — RL Policy Evaluation</h3>
+            <p class="project-role">Software Team · Isaac Lab / Python</p>
             <p>
-              Developing the whole-body control and teleoperation stack for the club’s full-size humanoid platform.
+              Building the evaluation suite that tests the club’s learned humanoid walking policies for robustness before they run on hardware.
             </p>
             <ul class="project-bullets">
-              <li>Tracing commands from VR operator headsets through the high-level controller down to joint-level actuation.</li>
-              <li>Implementing latency-compensation and stability routines in MuJoCo simulations under delayed packet transmission.</li>
-              <li>Developing modular ROS 2 packages adhering to modern colcon build and real-time execution standards.</li>
+              <li>Extended the terrain and friction sweep with sideways walking and turning on slippery ground.</li>
+              <li>Built a lighting and sensor-ablation sweep that checks whether the robot’s cameras and lidar can still track the scene in low light or with a sensor removed.</li>
             </ul>
             <div class="pill-list">
-              <span class="pill">ROS 2</span>
-              <span class="pill">MuJoCo</span>
-              <span class="pill">C++ / Python</span>
-              <span class="pill">Teleoperation</span>
+              <span class="pill">Isaac Lab</span>
+              <span class="pill">Reinforcement Learning</span>
+              <span class="pill">Sim-to-Real</span>
+              <span class="pill">Python</span>
             </div>
           </div>
 
@@ -908,6 +907,7 @@
             <h4>Robotics &amp; Sim</h4>
             <ul>
               <li>ROS 2 (Humble / colcon)</li>
+              <li>Isaac Lab</li>
               <li>MuJoCo</li>
               <li>Isaac Lab / Isaac Sim</li>
               <li>Gazebo</li>
